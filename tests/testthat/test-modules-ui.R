@@ -36,10 +36,10 @@ test_that("edit_user UI works", {
 
   edit_user_ui_tags <- edit_user_ui(id = "edit", credentials = credentials)
 
-  edit_user_ui_tags <- edit_user_ui(id = "edit", 
-                                    credentials = credentials, 
+  edit_user_ui_tags <- edit_user_ui(id = "edit",
+                                    credentials = credentials,
                                     username = "fanny")
-  
+
   expect_is(edit_user_ui_tags, "shiny.tag.list")
 })
 
@@ -53,15 +53,15 @@ test_that("logs UI works", {
 
 
 test_that("fab_button works", {
-  
+
   fab_button_tags <- fab_button()
-  
+
   expect_is(fab_button_tags, "shiny.tag.list")
 })
 
 test_that("secure_app works", {
-  
+
   sa <- secure_app(fluidPage())
-  
+
   expect_is(sa, "function")
 })

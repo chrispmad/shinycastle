@@ -42,7 +42,7 @@ test_that("check_credentials (applications) works", {
     stringsAsFactors = FALSE
   )
 
-  options("shinymanager.application" = "app2")
+  options("shinycastle.application" = "app2")
 
   expect_true(check_credentials(credentials)("fanny", "azerty")$result)
   expect_true(check_credentials(credentials)("fanny", "azerty")$authorized)
