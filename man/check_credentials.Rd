@@ -7,7 +7,7 @@
 check_credentials(db, passphrase = NULL)
 }
 \arguments{
-\item{db}{A \code{data.frame} with credentials data, a  path to SQLite database created with \code{\link{create_db}} 
+\item{db}{A \code{data.frame} with credentials data, a  path to SQLite database created with \code{\link{create_db}}
 or a .yaml configuration path of SQL Database created with \code{\link{create_sql_db}}.}
 
 \item{passphrase}{Passphrase to decrypt the SQLite database.}
@@ -32,9 +32,9 @@ The credentials \code{data.frame} can have the following columns:
   \item \strong{user (mandatory)} : the user's name.
   \item \strong{password (mandatory)} : the user's password.
   \item \strong{admin (optional)} : logical, is user have admin right ? If so,
-   user can access the admin mode (only available using a SQLite database). Initialize to FALSE if missing. 
-  \item \strong{start (optional)} : the date from which the user will have access to the application. Initialize to NA if missing. 
-  \item \strong{expire (optional)} : the date from which the user will no longer have access to the application. Initialize to NA if missing. 
+   user can access the admin mode (only available using a SQLite database). Initialize to FALSE if missing.
+  \item \strong{start (optional)} : the date from which the user will have access to the application. Initialize to NA if missing.
+  \item \strong{expire (optional)} : the date from which the user will no longer have access to the application. Initialize to NA if missing.
   \item \strong{applications (optional)} : the name of the applications to which the user is authorized,
    separated by a semicolon. The name of the application corresponds to the name of the directory,
    or can be declared using : \code{options("shinymanager.application" = "my-app")}
