@@ -21,7 +21,7 @@
 #' @importFrom shiny NS fluidRow column textInput passwordInput actionButton uiOutput
 #'
 #' @example examples/module-auth.R
-auth_ui_custom <- function(id, status = "primary", tags_top = NULL,
+auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
                     tags_bottom = NULL, background = NULL,
                     choose_language = NULL, lan = NULL, ...) {
 
@@ -66,7 +66,7 @@ auth_ui_custom <- function(id, status = "primary", tags_top = NULL,
 #' @importFrom htmltools tags
 #' @importFrom shiny reactiveValues observeEvent removeUI updateQueryString insertUI is.reactive icon updateActionButton updateTextInput renderUI
 #' @importFrom stats setNames
-auth_server_custom <- function(input, output, session,
+auth_server_castle <- function(input, output, session,
                         check_credentials,
                         use_token = FALSE, lan = NULL) {
 
