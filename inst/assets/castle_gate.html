@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="shinymanager/styles-auth.css" rel="stylesheet">
+    <link href="shinymanager/styles-castle.css" rel="stylesheet">
+    <script src = "shinymanager/bindEnter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    function PlayMusic() {
+        var play=document.getElementById("music");
+        play.play();
+    }
+
+    $(document).ready(function(){
+
+        // Bind the button to authenticate to the enter key (I think?)
+        bindEnter('auth-');
+
+        gate_open = 0;
+
+        //gate = document.getElementById('gate');
+        music_box = document.getElementById('music_box');
+        sun_moon = document.getElementById('sun_or_moon');
+        sky = document.getElementById('sky');
+
+
+        var music_is_playing = false;
+
+        // Click effects
+        music_box.addEventListener('click', function() {
+            if(!music_is_playing){
+                PlayMusic();
+            }
+            music_is_playing = true;
+        });
+    })
+</script>
+</head>
+<body>
+
+<div id="auth-auth-mod" class="panel-auth" style = "overflow: hidden;">
+<div class = 'container'>
+    <div class = "sky" id = "sky"></div>
+    <div class = 'solarflare'></div>
+    <div class = 'sun' id = 'sun' style = 'left: 80%; top: 5%;'></div>
+    <div class = 'moon' id = 'moon' style = 'left: 20%; top: 75%;'></div>
+    <div class = 'firmament'>
+      <div class = 'star' style = 'top: 2%; left: 5%;'></div>
+      <div class = 'star' style = 'top: 10%; left: 20%;'></div>
+      <div class = 'star' style = 'top: 12%; left: 40%;'></div>
+      <div class = 'star' style = 'top: 32%; left: 8%;'></div>
+      <div class = 'star' style = 'top: 18%; left: 17%;'></div>
+      <div class = 'star' style = 'top: 16%; left: 80%;'></div>
+      <div class = 'star' style = 'top: 8%; left: 82%;'></div>
+    </div>
+    <div class = 'cloud cloud1'></div>
+    <div class = 'cloud cloud2'></div>
+    <div class = 'cloud cloud3'></div>
+    <div class = 'bird' style = 'left:130%; top:3%;'>
+      <div class = 'bird-wings'>UU</div>
+    </div>
+    <div class = 'bird' style = 'left:126%; top:2.5%;'>
+        <div class = 'bird-wings'>UU</div>
+      </div>
+      <div class = 'bird' style = 'left:131%; top:4%;'>
+        <div class = 'bird-wings'>UU</div>
+      </div>
+    <div class = 'bird' style = 'left:100%; top:6%;'>
+      <div class = 'bird-wings'>UU</div>
+    </div>
+    <div class = 'bird' style = 'left:160%; top:3%;'>
+      <div class = 'bird-wings'>UU</div>
+    </div>
+    <div class = 'grass'></div>
+    <div class = 'forest' style = 'position: absolute;
+  top:60%;
+  left:0%;
+  width:100%;
+  height:100%;'>
+      <div class = 'tree1' style = 'top: -10%; left: 80%; width: 250px; height: 250px; z-index: 105;'></div>
+      <div class = 'tree2' style = 'top: 0%; left: 76%; width: 225px; height: 225px; z-index: 105;'></div>
+      <div class = 'tree2' style = 'top: 0%; left: 0%;'></div>
+      <div class = 'tree2' style = 'top: 10%; left: 25%;'></div>
+      <div class = 'tree1' style = 'top: -20%; left: 5%;'></div>
+      <div class = 'tree1' style = 'top: -21%; left: 89%;'></div>
+    </div>
+    <div id = 'music_box' class = "lute"></div>
+    <div class = 'moat'>
+        <div class = 'wave' style = 'left:27.5%; top:85%'></div>
+        <div class = 'wave wave-delay' style = 'left:30%'></div>
+        <div class = 'wave wave-delay' style = 'left:60%'></div>
+        <div class = 'wave' style = 'left:70%; top:75%'></div>
+    </div>
+    <div class = "castle">
+        <div class="tower left">
+          <div class = 'pixel-guard' id = 'pixel-guard-1'></div>
+          <div class = "crenellation cren-left"></div>
+        </div>
+        <div class="tower right">
+            <div class = 'pixel-guard' id = 'pixel-guard-2'></div>
+            <div class = "crenellation cren-right"></div>
+        </div>
+        <div class="castle-gate">
+          <div class = "cloth-banner"></div>
+          <div class = 'gate-hole'>
+                <!--<div class="gate" id = 'gate'>-->
+                  <div id="auth-container-btn-ok" style = "transition: transform 2s ease; transform-origin: bottom;">
+                      <button class="btn btn-default action-button med-text gate" id="auth-go_auth" type="button" style = "width:100%;">Enter</button>
+                    <!--</div>-->
+                    <div id="auth-result_auth"></div>
+                    <div id="auth-update_shinymanager_language" class="shiny-html-output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = 'night-screen'></div>
+    <audio id = "music">
+    <source src = "https://cdn.uppbeat.io/audio-files/0e5573c69208594d8a7e799df2ff2bcc/396ec6405ec28210ded6fd46cc959dd1/b8e8d420316541b5a2353493561a5f5c/STREAMING-feast-days-simon-folwar-main-version-29943-02-25.mp3" type = "audio/mpeg">
+    </audio>
+            <br/>
+            <div style="height: 22vh;"></div>
+            <br/>
+            <div class="row">
+              <div class="col-sm-4 offset-md-4 col-sm-offset-4">
+                <div class="panel panel-primary panel-in-wall">
+                  <div class="panel-body">
+                    <div style="display:none">
+                      <div class="row">
+                        <div class="col-sm-4 offset-md-4 col-sm-offset-4">
+                          <div id="auth-label_language" class="shiny-html-output"></div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div style="text-align: left; font-size: px;">
+                            <div class="form-group shiny-input-container" style="width:100%;">
+                              <label class="control-label shiny-label-null" for="auth-language" id="auth-language-label"></label>
+                              <div>
+                                <select id="auth-language" class="shiny-input-select"><option value="en" selected>English</option></select>
+                                <script type="application/json" data-for="auth-language" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "med-text" style="text-align: center; margin-bottom:-2rem; z-index: 300;">
+                      <h3 id="auth-shinymanager-auth-head">Please Authenticate</h3>
+                    </div>
+                    <br/>
+                    <div class = "row">
+                      <div class = "col-sm-2"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                          <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
+                          <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                          <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
+                          <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
+                        </div>
+                      </div>
+                      <div class = "col-sm-2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+</div>
+</body>
+</html>

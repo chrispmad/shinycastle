@@ -1,0 +1,33 @@
+Package: shinycastle
+Title: Authentication Management for 'Shiny' Applications
+Version: 0.0.1
+Authors@R: c(
+    person("Chris", "Madsen", email = "cpmadsenviking@gmail.com", role = c("aut", "cre"))
+    )
+Description: A medieval skin for the fantastic {shinymanager} package.
+License: GPL-3
+URL: https://github.com/datastorm-open/shinymanager
+Encoding: UTF-8
+RoxygenNote: 7.2.1
+Imports: 
+    R6,
+    shiny,
+    htmltools,
+    DT (>= 0.5),
+    DBI,
+    RSQLite,
+    openssl,
+    R.utils,
+    billboarder,
+    scrypt,
+    yaml,
+    glue,
+    shinymanager
+Suggests: 
+    keyring,
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown,
+    RPostgres,
+    sparklyr
+VignetteBuilder: knitr
