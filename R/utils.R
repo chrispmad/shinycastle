@@ -12,35 +12,35 @@ hasName <- function(x, name) {
 }
 
 write_logs_enabled <- function() {
-  getOption("shinymanager.write_logs", default = TRUE)
+  getOption("shinycastle.write_logs", default = TRUE)
 }
 
 show_logs_enabled <- function() {
-  getOption("shinymanager.show_logs", default = TRUE)
+  getOption("shinycastle.show_logs", default = TRUE)
 }
 
 get_auto_sql_reader <- function() {
-  getOption("shinymanager.auto_sql_reader", default = Inf)
+  getOption("shinycastle.auto_sql_reader", default = Inf)
 }
 
 get_auto_sqlite_reader <- function() {
-  getOption("shinymanager.auto_sqlite_reader", default = 1000)
+  getOption("shinycastle.auto_sqlite_reader", default = 1000)
 }
 
 get_appname <- function() {
-  getOption("shinymanager.application", default = basename(getwd()))
+  getOption("shinycastle.application", default = basename(getwd()))
 }
 
 get_download <- function(){
-  getOption("shinymanager.download", default = c("db", "logs", "users"))
+  getOption("shinycastle.download", default = c("db", "logs", "users"))
 }
 
 get_pwd_validity <- function(){
-  getOption("shinymanager.pwd_validity", default = Inf)
+  getOption("shinycastle.pwd_validity", default = Inf)
 }
 
 get_pwd_failure_limit <- function(){
-  getOption("shinymanager.pwd_failure_limit", default = Inf)
+  getOption("shinycastle.pwd_failure_limit", default = Inf)
 }
 
 
@@ -69,7 +69,7 @@ is_force_chg_pwd <- function(token) {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
   config_db  <- .tok$get_sql_config_db()
-  
+
   # sqlite
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -92,15 +92,15 @@ is_force_chg_pwd <- function(token) {
   } else  if (!is.null(config_db)) {
     conn <- connect_sql_db(config_db)
     on.exit(disconnect_sql_db(conn, config_db))
-    
+
     user <- user_info$user
     tablename <- SQL(config_db$tables$pwd_mngt$tablename)
     request <- glue_sql(config_db$tables$pwd_mngt$select, .con = conn)
     resetpwd <- dbGetQuery(conn, request)
-    
+
     # first check must change
     res <- resetpwd$must_change[1]
-    
+
     # then pwd_validity
     if(!res){
       pwd_validity <- as.numeric(get_pwd_validity())
@@ -112,7 +112,7 @@ is_force_chg_pwd <- function(token) {
       }
     }
     return(res)
-    
+
   } else {
     return(FALSE)
   }
@@ -124,7 +124,7 @@ force_chg_pwd <- function(user, change = TRUE) {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
   config_db  <- .tok$get_sql_config_db()
-  
+
   # sqlite
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -135,47 +135,47 @@ force_chg_pwd <- function(user, change = TRUE) {
         resetpwd$n_wrong_pwd <- 0
       }
     }
-    
+
     ind_user <- resetpwd$user %in% user
     resetpwd$must_change[ind_user] <- change
     resetpwd$n_wrong_pwd[ind_user] <- 0
-    
+
     if (!isTRUE(change)) {
       resetpwd$have_changed[ind_user] <- TRUE
       resetpwd$date_change[ind_user] <- as.character(Sys.Date())
     }
-    
+
     write_db_encrypt(conn, value = resetpwd, name = "pwd_mngt", passphrase = passphrase)
-    
+
   } else  if (!is.null(config_db)) {
     conn <- connect_sql_db(config_db)
     on.exit(disconnect_sql_db(conn, config_db))
-    
+
     tablename <- SQL(config_db$tables$pwd_mngt$tablename)
-    
+
     udpate_users <- user
-    
+
     name <- "must_change"
     value <- change
     request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
     dbExecute(conn, request)
-    
+
     name <- "n_wrong_pwd"
     value <- 0
     request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
     dbExecute(conn, request)
-    
+
     if (!isTRUE(change)) {
       name <- "have_changed"
       value <- TRUE
       request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
       dbExecute(conn, request)
-      
+
       name <- "date_change"
       value <- Sys.Date()
       request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
       dbExecute(conn, request)
-      
+
     }
   }
 }
@@ -186,12 +186,12 @@ update_pwd <- function(user, pwd) {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
   config_db  <- .tok$get_sql_config_db()
-  
+
   # sqlite
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
     on.exit(dbDisconnect(conn))
-    
+
     res_pwd <- try({
       users <- read_db_decrypt(conn, name = "credentials", passphrase = passphrase)
       ind_user <- users$user %in% user
@@ -209,18 +209,18 @@ update_pwd <- function(user, pwd) {
     return(list(result = !inherits(res_pwd, "try-error")))
   } else  if (!is.null(config_db)) {
     res_pwd <- try({
-      
+
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       value <- scrypt::hashPassword(pwd)
       name <- "password"
       udpate_users <- user
-      
+
       tablename <- SQL(config_db$tables$credentials$tablename)
       request <- glue_sql(config_db$tables$credentials$update, .con = conn)
       dbExecute(conn, request)
-      
+
       force_chg_pwd(user, FALSE)
     })
     return(list(result = !inherits(res_pwd, "try-error")))
@@ -235,7 +235,7 @@ check_new_pwd <- function(user, pwd) {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
   config_db  <- .tok$get_sql_config_db()
-  
+
   # sqlite
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -253,20 +253,20 @@ check_new_pwd <- function(user, pwd) {
     }, silent = TRUE)
     if("try-error" %in% class(res_pwd)) res_pwd <- TRUE
     return(res_pwd)
-    
+
   } else  if (!is.null(config_db)) {
-    
+
     res_pwd <- try({
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       tablename <- SQL(config_db$tables$credentials$tablename)
       request <- glue_sql(config_db$tables$credentials$select, .con = conn)
       user_info <- dbGetQuery(conn, request)
-      
+
       !scrypt::verifyPassword(user_info$password[1], pwd)
     }, silent = TRUE)
-    
+
     if("try-error" %in% class(res_pwd)) res_pwd <- TRUE
     return(res_pwd)
   } else {
@@ -283,7 +283,7 @@ save_logs <- function(token) {
     passphrase <- .tok$get_passphrase()
     user <- .tok$get_user(token)
     config_db  <- .tok$get_sql_config_db()
-    
+
     # sqlite ?
     if (!is.null(sqlite_path)) {
       conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -298,13 +298,13 @@ save_logs <- function(token) {
             logs$status <- character(0)
           }
         }
-        
+
         # check if current admin user
         date_time <- as.character(Sys.time())
         date_day <- substring(date_time, 1, 10)
         logs_day <- substring(logs$server_connected, 1, 10)
         already_user_token <- any(logs$user %in% user & logs_day %in% date_day & logs$token %in% token)
-        
+
         if(!already_user_token){
           logs <- rbind(logs, data.frame(
             user = user,
@@ -316,7 +316,7 @@ save_logs <- function(token) {
             stringsAsFactors = FALSE
           ))
           write_db_encrypt(conn = conn, value = logs, name = "logs", passphrase = passphrase)
-          
+
           # update pwd_management
           pwd_mngt <- read_db_decrypt(conn = conn, name = "pwd_mngt", passphrase = passphrase)
           if(nrow(pwd_mngt) > 0){
@@ -327,7 +327,7 @@ save_logs <- function(token) {
             }
             write_db_encrypt(conn = conn, value = pwd_mngt, name = "pwd_mngt", passphrase = passphrase)
           }
-          
+
         }
       }, silent = TRUE)
       if (inherits(res_logs, "try-error")) {
@@ -336,19 +336,19 @@ save_logs <- function(token) {
         ), call. = FALSE)
       }
     } else if(!is.null(config_db)){
-      
+
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       # check if current admin user
       tablename <- SQL(config_db$tables$logs$tablename)
       request <- glue_sql(config_db$tables$logs$check_token, .con = conn)
       already_user_token <- dbGetQuery(conn, request)
-      
+
       if(nrow(already_user_token) == 0){
-        
+
         write_sql_db(
-          config_db = config_db, 
+          config_db = config_db,
           value = data.frame(
             user = user,
             server_connected = as.character(Sys.time()),
@@ -357,15 +357,15 @@ save_logs <- function(token) {
             app = get_appname(),
             status = "Success",
             stringsAsFactors = FALSE
-          ), 
+          ),
           name = config_db$tables$logs$tablename
         )
-        
+
         # update pwd_management
         tablename <- SQL(config_db$tables$pwd_mngt$tablename)
         request <- glue_sql(config_db$tables$pwd_mngt$select, .con = conn)
         pwd_mngt_user <- dbGetQuery(conn, request)
-        
+
         if(nrow(pwd_mngt_user) > 0){
           if("n_wrong_pwd" %in% colnames(pwd_mngt_user)){
             value <- 0
@@ -373,7 +373,7 @@ save_logs <- function(token) {
             udpate_users <- user
             request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
             db <- dbExecute(conn, request)
-          } 
+          }
         }
       }
     }
@@ -384,7 +384,7 @@ check_locked_account <- function(user, pwd_failure_limit) {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
   config_db  <- .tok$get_sql_config_db()
-  
+
   # sqlite
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -405,26 +405,26 @@ check_locked_account <- function(user, pwd_failure_limit) {
     if (inherits(res_lock, "try-error")) res_lock <- FALSE
     return(res_lock)
   } else  if (!is.null(config_db)) {
-    
+
     res_lock <- try({
-      
+
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       tablename <- SQL(config_db$tables$pwd_mngt$tablename)
       request <- glue_sql(config_db$tables$pwd_mngt$select, .con = conn)
       pwd_mngt <- dbGetQuery(conn, request)
-      
+
       if(nrow(pwd_mngt) == 1 && "n_wrong_pwd" %in% colnames(pwd_mngt)){
         pwd_mngt$n_wrong_pwd[1] >= pwd_failure_limit
       } else {
         FALSE
       }
     }, silent = TRUE)
-    
+
     if (inherits(res_lock, "try-error")) res_lock <- FALSE
     return(res_lock)
-    
+
   } else {
     return(FALSE)
   }
@@ -433,9 +433,9 @@ check_locked_account <- function(user, pwd_failure_limit) {
 save_logs_failed <- function(user, status = "Failed") {
   sqlite_path <- .tok$get_sqlite_path()
   passphrase <- .tok$get_passphrase()
-  
+
   config_db <- .tok$get_sql_config_db()
-  
+
   # sqlite ?
   if (!is.null(sqlite_path)) {
     conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -460,23 +460,23 @@ save_logs_failed <- function(user, status = "Failed") {
         stringsAsFactors = FALSE
       ))
       write_db_encrypt(conn = conn, value = logs, name = "logs", passphrase = passphrase)
-      
+
       if(status %in% "Wrong pwd"){
         # update pwd_management
         pwd_mngt <- read_db_decrypt(conn = conn, name = "pwd_mngt", passphrase = passphrase)
         if(nrow(pwd_mngt) > 0){
           if(!"n_wrong_pwd" %in% colnames(pwd_mngt)){
             pwd_mngt$n_wrong_pwd <- 0
-          } 
-          
+          }
+
           ind_user <- which(pwd_mngt$user %in% user)
           pwd_mngt$n_wrong_pwd[ind_user] <- pwd_mngt$n_wrong_pwd[ind_user] + 1
           write_db_encrypt(conn = conn, value = pwd_mngt, name = "pwd_mngt", passphrase = passphrase)
         }
       }
-      
+
     }, silent = TRUE)
-    
+
     if (inherits(res_logs, "try-error")) {
       warning(paste(
         "shinymanager: unable to save logs | error:", attr(res_logs, "condition")$message
@@ -484,13 +484,13 @@ save_logs_failed <- function(user, status = "Failed") {
     }
   } else if(!is.null(config_db)){
     res_logs <- try({
-      
+
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       if(write_logs_enabled()){
         write_sql_db(
-          config_db = config_db, 
+          config_db = config_db,
           value = data.frame(
             user = user,
             server_connected = as.character(Sys.time()),
@@ -498,18 +498,18 @@ save_logs_failed <- function(user, status = "Failed") {
             logout = NA_character_,
             app = get_appname(),
             status = status
-          ), 
+          ),
           name = config_db$tables$logs$tablename
         )
       }
-      
+
       if(status %in% "Wrong pwd"){
         # update pwd_management
-        
+
         tablename <- SQL(config_db$tables$pwd_mngt$tablename)
         request <- glue_sql(config_db$tables$pwd_mngt$select, .con = conn)
         pwd_mngt_user <- dbGetQuery(conn, request)
-        
+
         if(nrow(pwd_mngt_user) > 0){
           if("n_wrong_pwd" %in% colnames(pwd_mngt_user)){
             value <- pwd_mngt_user$n_wrong_pwd + 1
@@ -517,29 +517,29 @@ save_logs_failed <- function(user, status = "Failed") {
             udpate_users <- user
             request <- glue_sql(config_db$tables$pwd_mngt$update, .con = conn)
             db <- dbExecute(conn, request)
-          } 
+          }
         }
       }
     }, silent = TRUE)
-    
+
     if (inherits(res_logs, "try-error")) {
       warning(paste(
         "shinymanager: unable to save logs | error:", attr(res_logs, "condition")$message
       ), call. = FALSE)
     }
-    
+
   }
 }
 
 #' @importFrom DBI dbConnect dbDisconnect
 #' @importFrom RSQLite SQLite
 logout_logs <- function(token) {
-  
+
   if(write_logs_enabled()){
     sqlite_path <- .tok$get_sqlite_path()
     passphrase <- .tok$get_passphrase()
     config_db <- .tok$get_sql_config_db()
-    
+
     # sqlite ?
     if (!is.null(sqlite_path)) {
       conn <- dbConnect(SQLite(), dbname = sqlite_path)
@@ -555,14 +555,14 @@ logout_logs <- function(token) {
         ), call. = FALSE)
       }
     } else if(!is.null(config_db)){
-      
+
       conn <- connect_sql_db(config_db)
       on.exit(disconnect_sql_db(conn, config_db))
-      
+
       tablename <- SQL(config_db$tables$logs$tablename)
       request <- glue_sql(config_db$tables$logs$check_token, .con = conn)
       logs_user <- dbGetQuery(conn, request)
-      
+
       if(nrow(logs_user) > 0){
         if("logout" %in% colnames(logs_user)){
           value <-  as.character(Sys.time())
@@ -570,7 +570,7 @@ logout_logs <- function(token) {
           token <- logs_user$token
           request <- glue_sql(config_db$tables$logs$update, .con = conn)
           db <- dbExecute(conn, request)
-        } 
+        }
       }
     }
   }

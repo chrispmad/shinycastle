@@ -21,16 +21,16 @@
 #' @importFrom shiny NS fluidRow column textInput passwordInput actionButton uiOutput
 #'
 #' @example examples/module-auth.R
-auth_ui <- function(id, status = "primary", tags_top = NULL,
+auth_ui_delete <- function(id, status = "primary", tags_top = NULL,
                     tags_bottom = NULL, background = NULL,
                     choose_language = NULL, lan = NULL, ...) {
-  
+
   ns <- NS(id)
-  
+
   if(is.null(lan)){
     lan <- use_language()
   }
-  
+
   # patch / message changing tag_img & tag_div
   deprecated <- list(...)
   if("tag_img" %in% names(deprecated)){
@@ -43,8 +43,8 @@ auth_ui <- function(id, status = "primary", tags_top = NULL,
   }
   tagList(
     singleton(tags$head(
-      tags$link(href="shinymanager/styles-auth.css", rel="stylesheet"),
-      tags$script(src = "shinymanager/bindEnter.js"),
+      tags$link(href="shinycastle/styles-auth.css", rel="stylesheet"),
+      tags$script(src = "shinycastle/bindEnter.js"),
       if(!is.null(background)){
         background <- gsub(";$", "", background)
         tags$style(HTML(paste0(".panel-auth {background:", background, ",#FFF;}")))
@@ -61,7 +61,7 @@ auth_ui <- function(id, status = "primary", tags_top = NULL,
             tags$div(
               class = "panel-body",
               {
-                
+
                 choices = lan$get_language()
                 lan_registered <- lan$get_language_registered()
                 if(is.logical(choose_language) && choose_language){
@@ -69,7 +69,7 @@ auth_ui <- function(id, status = "primary", tags_top = NULL,
                 } else if(is.character(choose_language)){
                   choices = unique(c(intersect(choose_language, unname(lan$get_language_registered())), lan$get_language()))
                 }
-                
+
                 names(choices) <- choices
                 for(i in 1:length(choices)){
                   ind <- which(lan_registered %in% choices[i])
@@ -175,16 +175,16 @@ auth_ui <- function(id, status = "primary", tags_top = NULL,
 #' @importFrom htmltools tags
 #' @importFrom shiny reactiveValues observeEvent removeUI updateQueryString insertUI is.reactive icon updateActionButton updateTextInput renderUI
 #' @importFrom stats setNames
-auth_server <- function(input, output, session,
+auth_server_delete <- function(input, output, session,
                         check_credentials,
                         use_token = FALSE, lan = NULL) {
-  
+
   ns <- session$ns
   jns <- function(x) {
     paste0("#", ns(x))
   }
-  
-  
+
+
   if(!is.reactive(lan)){
     if(is.null(lan)){
       lan <- reactiveVal(use_language())
@@ -192,22 +192,22 @@ auth_server <- function(input, output, session,
       lan <- reactiveVal(lan)
     }
   }
-  
-  
+
+
   observe({
     session$sendCustomMessage(
       type = "focus_input",
       message = list(inputId = ns("user_id"))
     )
   })
-  
+
   observe({
     if(!is.null(input$language)){
       lan()$set_language(input$language)
       updateTextInput(session, inputId = "user_id", label = lan()$get("Username:"))
       updateTextInput(session, inputId = "user_pwd", label = lan()$get("Password:"))
       updateActionButton(session, inputId = "go_auth", label = lan()$get("Login"))
-      
+
       session$sendCustomMessage(
         type = "update_auth_title",
         message = list(
@@ -215,44 +215,44 @@ auth_server <- function(input, output, session,
           title = lan()$get("Please authenticate")
         )
       )
-      
+
       output$update_shinymanager_language <- renderUI({
         shinymanager_language(lan()$get_language())
       })
-      
+
       output$label_language <- renderUI({
         tags$p(paste0(lan()$get("Language"), " :"),
                style = "text-align: right; font-style: italic; margin-top:5px")
       })
-      
+
     }
   })
-  
-  
+
+
   authentication <- reactiveValues(result = FALSE, user = NULL, user_info = NULL)
-  
+
   observeEvent(input$go_auth, {
     removeUI(selector = jns("msg_auth"))
-    
+
     insertUI(
       selector = jns("container-btn-ok"),
       ui = tags$div(
         id = ns("spinner_msg_ok"),
-        img(src = "shinymanager/1497.gif", style = "height:30px;"), 
+        img(src = "shinycastle/1497.gif", style = "height:30px;"),
         align = "center"
       ),
-      immediate = TRUE 
+      immediate = TRUE
     )
-    
+
     res_auth <- check_credentials(input$user_id, input$user_pwd)
-    
+
     # locked account ?
     locked <- FALSE
     pwd_failure_limit <- as.numeric(get_pwd_failure_limit())
     if(length(pwd_failure_limit) > 0 && !is.na(pwd_failure_limit) && !is.infinite(pwd_failure_limit)){
       locked <- check_locked_account(input$user_id, pwd_failure_limit)
     }
-    
+
     if (isTRUE(res_auth$result) & !locked) {
       removeUI(selector = jns("auth-mod"))
       authentication$result <- TRUE
@@ -260,18 +260,18 @@ auth_server <- function(input, output, session,
       authentication$user_info <- res_auth$user_info
       # token <- generate_token(input$user_id)
       token <- .tok$generate(input$user_id)
-      
+
       if (isTRUE(use_token)) {
         # add_token(token, as.list(res_auth$user_info))
         .tok$add(token, as.list(res_auth$user_info))
         addAuthToQuery(session, token, lan()$get_language())
         session$reload()
       }
-      
+
     } else if (isTRUE(res_auth$result) & locked) {
-      
+
       save_logs_failed(input$user_id, status = "Locked Account")
-      
+
       insertUI(
         selector = jns("result_auth"),
         ui = tags$div(
@@ -279,7 +279,7 @@ auth_server <- function(input, output, session,
           icon("triangle-exclamation"), lan()$get("Your account is locked")
         )
       )
-      
+
     } else {
       if (is.null(res_auth$user_info)) {
         save_logs_failed(input$user_id, status = "Unknown user")
@@ -310,9 +310,9 @@ auth_server <- function(input, output, session,
             )
           )
         } else {
-          
+
           save_logs_failed(input$user_id, status = "Wrong pwd")
-          
+
           if(!locked){
             insertUI(
               selector = jns("result_auth"),
@@ -333,11 +333,11 @@ auth_server <- function(input, output, session,
         }
       }
     }
-    
+
     removeUI(selector = jns("spinner_msg_ok"))
-    
+
   }, ignoreInit = TRUE)
-  
+
   return(authentication)
 }
 

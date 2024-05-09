@@ -5,7 +5,7 @@
 #' @noRd
 #'
 .onLoad <- function(...) {
-  shiny::addResourcePath("shinymanager", system.file("assets", package = "shinymanager"))
+  shiny::addResourcePath("shinycastle", system.file("assets", package = "shinycastle"))
 }
 
 shinymanager_con <- new.env(hash=TRUE)
