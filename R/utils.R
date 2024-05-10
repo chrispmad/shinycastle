@@ -12,35 +12,35 @@ hasName <- function(x, name) {
 }
 
 write_logs_enabled <- function() {
-  getOption("shinycastle.write_logs", default = TRUE)
+  getOption("shinymanager.write_logs", default = TRUE)
 }
 
 show_logs_enabled <- function() {
-  getOption("shinycastle.show_logs", default = TRUE)
+  getOption("shinymanager.show_logs", default = TRUE)
 }
 
 get_auto_sql_reader <- function() {
-  getOption("shinycastle.auto_sql_reader", default = Inf)
+  getOption("shinymanager.auto_sql_reader", default = Inf)
 }
 
 get_auto_sqlite_reader <- function() {
-  getOption("shinycastle.auto_sqlite_reader", default = 1000)
+  getOption("shinymanager.auto_sqlite_reader", default = 1000)
 }
 
 get_appname <- function() {
-  getOption("shinycastle.application", default = basename(getwd()))
+  getOption("shinymanager.application", default = basename(getwd()))
 }
 
 get_download <- function(){
-  getOption("shinycastle.download", default = c("db", "logs", "users"))
+  getOption("shinymanager.download", default = c("db", "logs", "users"))
 }
 
 get_pwd_validity <- function(){
-  getOption("shinycastle.pwd_validity", default = Inf)
+  getOption("shinymanager.pwd_validity", default = Inf)
 }
 
 get_pwd_failure_limit <- function(){
-  getOption("shinycastle.pwd_failure_limit", default = Inf)
+  getOption("shinymanager.pwd_failure_limit", default = Inf)
 }
 
 

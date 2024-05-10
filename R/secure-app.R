@@ -201,30 +201,30 @@ secure_app <- function(ui,
 #' }
 #'
 #' You can specify if you want to allow downloading users file,  sqlite database and logs from within
-#' the admin panel by invoking \code{options("shinycastle.download")}. It defaults
+#' the admin panel by invoking \code{options("shinymanager.download")}. It defaults
 #' to \code{c("db", "logs", "users")}, that allows downloading all. You can specify
-#' \code{options("shinycastle.download" = "db"} if you want allow admin to download only
-#' sqlite database, \code{options("shinycastle.download" = "logs")} to allow logs download
-#' or \code{options("shinycastle.download" = "")} to disable all.
+#' \code{options("shinymanager.download" = "db"} if you want allow admin to download only
+#' sqlite database, \code{options("shinymanager.download" = "logs")} to allow logs download
+#' or \code{options("shinymanager.download" = "")} to disable all.
 #'
-#' Using \code{options("shinycastle.pwd_validity")}, you can set password validity period. It defaults
+#' Using \code{options("shinymanager.pwd_validity")}, you can set password validity period. It defaults
 #' to \code{Inf}. You can specify for example
-#' \code{options("shinycastle.pwd_validity" = 90)} if you want to force user changing password each 90 days.
+#' \code{options("shinymanager.pwd_validity" = 90)} if you want to force user changing password each 90 days.
 #'
-#' Using \code{options("shinycastle.pwd_failure_limit")}, you can set password failure limit. It defaults
+#' Using \code{options("shinymanager.pwd_failure_limit")}, you can set password failure limit. It defaults
 #' to \code{Inf}. You can specify for example
-#' \code{options("shinycastle.pwd_failure_limit" = 5)} if you want to lock user account after 5 wrong password.
+#' \code{options("shinymanager.pwd_failure_limit" = 5)} if you want to lock user account after 5 wrong password.
 #'
-#' Using \code{options("shinycastle.auto_sqlite_reader")}, you can set reactiveFileReader time (milliseconds) used to look at sqlite db only.
+#' Using \code{options("shinymanager.auto_sqlite_reader")}, you can set reactiveFileReader time (milliseconds) used to look at sqlite db only.
 #' Used and useful in admin panel to prevent bug having potentially multiple admin session. It defaults to \code{1000}
 #'
-#' Using \code{options("shinycastle.auto_sql_reader")}, you can set reactiveTimer SQL (not sqlite) admin reader. It defaults
+#' Using \code{options("shinymanager.auto_sql_reader")}, you can set reactiveTimer SQL (not sqlite) admin reader. It defaults
 #' to \code{Inf} (disabled). It's only needed to prevent potential bug if two ore more admin are updated users
 #' at the same time.
 #'
-#' Using \code{options("shinycastle.write_logs")}, you can activate or not writing users connection logs. Default to \code{TRUE}
+#' Using \code{options("shinymanager.write_logs")}, you can activate or not writing users connection logs. Default to \code{TRUE}
 #'
-#' Using \code{options("shinycastle.show_logs")}, you can activate or not showing users connection logs in admin panel. Default to \code{TRUE}
+#' Using \code{options("shinymanager.show_logs")}, you can activate or not showing users connection logs in admin panel. Default to \code{TRUE}
 #'
 #' @export
 #'
