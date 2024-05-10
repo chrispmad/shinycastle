@@ -31,7 +31,7 @@ auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
     lan <- use_language()
   }
   # Read in custom castle HTML page
-  html_file <- readLines("shinycastle/castle_gate.html", warn = FALSE)
+  html_file <- readLines("shinycastle/textures/castle_gate.html", warn = FALSE)
   html_code <- paste(html_file, collapse = "\n")
   shiny::HTML(html_code)
 }
