@@ -30,14 +30,6 @@ auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
   if(is.null(lan)){
     lan <- use_language()
   }
-  # Read in custom castle HTML page
-  # browser()
-  # html_file <- tryCatch(
-  #   expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
-  #   error = function(e) readLines("castle_gate.html", warn = FALSE)
-  # )
-  # html_code <- paste(html_file, collapse = "\n")
-  # shiny::HTML(html_code)
   uiOutput(ns('castle_login_page'))
 }
 
@@ -93,7 +85,7 @@ auth_server_castle <- function(input, output, session,
     # browser()
     html_file <- tryCatch(
       expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
-      error = function(e) readLines("shinycastle/castle_gate.html", warn = FALSE)
+      error = function(e) readLines("shinycastle/assets/castle_gate.html", warn = FALSE)
     )
     html_code <- paste(html_file, collapse = "\n")
     shiny::HTML(html_code)

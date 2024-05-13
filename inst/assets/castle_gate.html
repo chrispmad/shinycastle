@@ -24,7 +24,7 @@
         music_box = document.getElementById('music_box');
         sun_moon = document.getElementById('sun_or_moon');
         sky = document.getElementById('sky');
-
+        gate = document.getElementById('auth-go_auth');
 
         var music_is_playing = false;
 
@@ -34,6 +34,10 @@
                 PlayMusic();
             }
             music_is_playing = true;
+        });
+
+        gate.addEventListener('click', function() {
+          gate.classList.add('gate-down');
         });
     })
 </script>

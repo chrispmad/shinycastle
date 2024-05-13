@@ -37,7 +37,7 @@ secure_app_castle <- function(ui,
     warning("Only supported language for the now are: en, fr, pt-BR, es, de, pl, ja, el, id, zh-CN", call. = FALSE)
     language <- "en"
   }
-  
+
   lan <- use_language(language)
   ui <- force(ui)
   enable_admin <- force(enable_admin)
@@ -45,9 +45,9 @@ secure_app_castle <- function(ui,
   if (is.null(theme)) {
     theme <- "shinycastle/css/readable.min.css"
   }
-  
+
   # Read in our HTML page and render UI for front-end.
-  
+
   html_file <- tryCatch(
     expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
     error = function(e) readLines("shinycastle/castle_gate.html", warn = FALSE)
@@ -219,22 +219,22 @@ secure_server_castle <- function(check_credentials,
                           keep_token = FALSE,
                           validate_pwd = NULL,
                           session = shiny::getDefaultReactiveDomain()) {
-  
+
   session$setBookmarkExclude(c(session$getBookmarkExclude(),
                                "shinymanager_language",
                                ".shinymanager_timeout",
                                ".shinymanager_admin",
                                ".shinymanager_logout",
                                "shinymanager_where"))
-  
+
   token_start <- isolate(getToken(session = session))
   if (isTRUE(keep_token)) {
     .tok$reset_count(token_start)
   } else {
     isolate(resetQueryString(session = session))
   }
-  
-  
+
+
   lan <- reactiveVal(use_language())
   observe({
     lang <- getLanguage(session = session)
@@ -242,15 +242,15 @@ secure_server_castle <- function(check_credentials,
       lan(use_language(lang))
     }
   })
-  
+
   callModule(
-    module = auth_server,
+    module = auth_server_castle,
     id = "auth",
     check_credentials = check_credentials,
     use_token = TRUE,
     lan = lan
   )
-  
+
   callModule(
     module = pwd_server,
     id = "password",
@@ -260,12 +260,12 @@ secure_server_castle <- function(check_credentials,
     use_token = TRUE,
     lan = lan
   )
-  
+
   .tok$set_timeout(timeout)
-  
+
   path_sqlite <- .tok$get_sqlite_path()
   config_db <- .tok$get_sql_config_db()
-  
+
   if (!is.null(path_sqlite) | !is.null(config_db)) {
     callModule(
       module = admin,
@@ -277,7 +277,7 @@ secure_server_castle <- function(check_credentials,
       max_users = max_users,
       lan = lan
     )
-    
+
     if(show_logs_enabled()){
       callModule(
         module = logs,
@@ -290,9 +290,9 @@ secure_server_castle <- function(check_credentials,
       )
     }
   }
-  
+
   user_info_rv <- reactiveValues()
-  
+
   observe({
     token <- getToken(session = session)
     if (!is.null(token)) {
@@ -312,21 +312,21 @@ secure_server_castle <- function(check_credentials,
       }
     }
   })
-  
+
   observeEvent(session$input$.shinymanager_admin, {
     token <- getToken(session = session)
     updateQueryString(queryString = sprintf("?token=\"%s\"&admin=true&language=\"%s\"", token, lan()$get_language()), session = session, mode = "replace")
     .tok$reset_count(token)
     session$reload()
   }, ignoreInit = TRUE)
-  
+
   observeEvent(session$input$.shinymanager_app, {
     token <- getToken(session = session)
     updateQueryString(queryString = sprintf("?token=\"%s\"&language=\"%s\"", token, lan()$get_language()), session = session, mode = "replace")
     .tok$reset_count(token)
     session$reload()
   }, ignoreInit = TRUE)
-  
+
   observeEvent(session$input$.shinymanager_logout, {
     token <- getToken(session = session)
     logout_logs(token)
@@ -334,11 +334,11 @@ secure_server_castle <- function(check_credentials,
     clearQueryString(session = session)
     session$reload()
   }, ignoreInit = TRUE)
-  
-  
-  
+
+
+
   if (timeout > 0) {
-    
+
     observeEvent(session$input$.shinymanager_timeout, {
       token <- getToken(session = session)
       if (!is.null(token)) {
@@ -350,7 +350,7 @@ secure_server_castle <- function(check_credentials,
         }
       }
     })
-    
+
     observe({
       invalidateLater(30000, session)
       token <- getToken(session = session)
@@ -363,9 +363,9 @@ secure_server_castle <- function(check_credentials,
         }
       }
     })
-    
+
   }
-  
+
   return(user_info_rv)
 }
 
