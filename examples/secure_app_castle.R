@@ -12,7 +12,10 @@ if (interactive()) {
 
   ui <- fluidPage(
     tags$h2("My secure application"),
-    verbatimTextOutput("auth_output")
+    verbatimTextOutput("auth_output"),
+    h5("Critically Sensitive Data"),
+    p(id = 'b_number', "Bank number: 394291834932"),
+    p(id = 'b_pass', "Bank password: 304291")
   )
 
   # Wrap your UI with secure_app

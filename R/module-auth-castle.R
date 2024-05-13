@@ -22,8 +22,8 @@
 #'
 #' @example examples/module-auth.R
 auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
-                    tags_bottom = NULL, background = NULL,
-                    choose_language = NULL, lan = NULL, ...) {
+                           tags_bottom = NULL, background = NULL,
+                           choose_language = NULL, lan = NULL, ...) {
 
   ns <- NS(id)
 
@@ -64,8 +64,8 @@ auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
 #' @importFrom shiny reactiveValues observeEvent removeUI updateQueryString insertUI is.reactive icon updateActionButton updateTextInput renderUI
 #' @importFrom stats setNames
 auth_server_castle <- function(input, output, session,
-                        check_credentials,
-                        use_token = FALSE, lan = NULL) {
+                               check_credentials,
+                               use_token = FALSE, lan = NULL) {
 
   ns <- session$ns
   jns <- function(x) {
@@ -82,13 +82,19 @@ auth_server_castle <- function(input, output, session,
 
   # Read in our HTML page and render UI for front-end.
   output$castle_login_page = renderUI({
-    # browser()
-    html_file <- tryCatch(
-      expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
-      error = function(e) readLines("shinycastle/assets/castle_gate.html", warn = FALSE)
-    )
+    # html_file <- tryCatch(
+    #   expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
+    #   error = function(e) readLines("shinycastle/assets/castle_gate.html", warn = FALSE)
+    # )
+    html_file = readLines(system.file('assets/castle_gate.html', package = 'shinycastle'))
     html_code <- paste(html_file, collapse = "\n")
     shiny::HTML(html_code)
+    # tags$script(
+    #   "Shiny.addCustomMessageHandler('start_dragon_flight', function(data) {
+    #  eval(data.message)
+    # });"
+    # )
+
   })
 
   observe({
@@ -151,6 +157,16 @@ auth_server_castle <- function(input, output, session,
       locked <- check_locked_account(input$user_id, pwd_failure_limit)
     }
 
+    # Summon a dragon if the user has inputted an incorrect username / password combination
+    if(isFALSE(res_auth$result)) {
+      # shinyjs::runjs('dragon_flight();')
+      jscode = "
+  dragon_flight();
+"
+      session$sendCustomMessage(type = "start_dragon_flight", list(message = jscode))
+
+    }
+
     if (isTRUE(res_auth$result) & !locked) {
       shinyjs::toggleClass("container-btn-ok", "gate-down")
       Sys.sleep(2)
@@ -172,63 +188,63 @@ auth_server_castle <- function(input, output, session,
 
       save_logs_failed(input$user_id, status = "Locked Account")
 
-      insertUI(
-        selector = jns("result_auth"),
-        ui = tags$div(
-          id = ns("msg_auth"), class = "alert alert-danger",
-          icon("triangle-exclamation"), lan()$get("Your account is locked")
-        )
-      )
+      # insertUI(
+      #   selector = jns("result_auth"),
+      #   ui = tags$div(
+      #     id = ns("msg_auth"), class = "alert alert-danger",
+      #     icon("triangle-exclamation"), lan()$get("Your account is locked")
+      #   )
+      # )
 
     } else {
       if (is.null(res_auth$user_info)) {
         save_logs_failed(input$user_id, status = "Unknown user")
-        insertUI(
-          selector = jns("result_auth"),
-          ui = tags$div(
-            id = ns("msg_auth"), class = "alert alert-danger",
-            icon("triangle-exclamation"), lan()$get("Username or password are incorrect")
-          )
-        )
+        # insertUI(
+        #   selector = jns("result_auth"),
+        #   ui = tags$div(
+        #     id = ns("msg_auth"), class = "alert alert-danger",
+        #     icon("triangle-exclamation"), lan()$get("Username or password are incorrect")
+        #   )
+        # )
       } else if (isTRUE(res_auth$expired)) {
         save_logs_failed(input$user_id, status = "Expired")
-        insertUI(
-          selector = jns("result_auth"),
-          ui = tags$div(
-            id = ns("msg_auth"), class = "alert alert-danger",
-            icon("triangle-exclamation"), lan()$get("Your account has expired")
-          )
-        )
+        # insertUI(
+        #   selector = jns("result_auth"),
+        #   ui = tags$div(
+        #     id = ns("msg_auth"), class = "alert alert-danger",
+        #     icon("triangle-exclamation"), lan()$get("Your account has expired")
+        #   )
+        # )
       } else {
         if (!isTRUE(res_auth$authorized)) {
           save_logs_failed(input$user_id, status = "Unauthorized")
-          insertUI(
-            selector = jns("result_auth"),
-            ui = tags$div(
-              id = ns("msg_auth"), class = "alert alert-danger",
-              icon("triangle-exclamation"), lan()$get("You are not authorized for this application")
-            )
-          )
+          # insertUI(
+          #   selector = jns("result_auth"),
+          #   ui = tags$div(
+          #     id = ns("msg_auth"), class = "alert alert-danger",
+          #     icon("triangle-exclamation"), lan()$get("You are not authorized for this application")
+          #   )
+          # )
         } else {
 
           save_logs_failed(input$user_id, status = "Wrong pwd")
 
           if(!locked){
-            insertUI(
-              selector = jns("result_auth"),
-              ui = tags$div(
-                id = ns("msg_auth"), class = "alert alert-danger",
-                icon("triangle-exclamation"), lan()$get("Username or password are incorrect")
-              )
-            )
+            # insertUI(
+            #   selector = jns("result_auth"),
+            #   ui = tags$div(
+            #     id = ns("msg_auth"), class = "alert alert-danger",
+            #     icon("triangle-exclamation"), lan()$get("Username or password are incorrect")
+            #   )
+            # )
           } else {
-            insertUI(
-              selector = jns("result_auth"),
-              ui = tags$div(
-                id = ns("msg_auth"), class = "alert alert-danger",
-                icon("triangle-exclamation"), lan()$get("Your account is locked")
-              )
-            )
+            # insertUI(
+            #   selector = jns("result_auth"),
+            #   ui = tags$div(
+            #     id = ns("msg_auth"), class = "alert alert-danger",
+            #     icon("triangle-exclamation"), lan()$get("Your account is locked")
+            #   )
+            # )
           }
         }
       }

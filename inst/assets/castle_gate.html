@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
+
     function PlayMusic() {
         var play=document.getElementById("music");
         play.play();
@@ -25,6 +26,7 @@
         sun_moon = document.getElementById('sun_or_moon');
         sky = document.getElementById('sky');
         gate = document.getElementById('auth-go_auth');
+        dragon = document.getElementById('red_dragon');
 
         var music_is_playing = false;
 
@@ -36,9 +38,9 @@
             music_is_playing = true;
         });
 
-        gate.addEventListener('click', function() {
-          gate.classList.add('gate-down');
-        });
+        //gate.addEventListener('click', function() {
+        //  gate.classList.add('gate-down');
+        //});
     })
 </script>
 </head>
@@ -77,6 +79,7 @@
     <div class = 'bird' style = 'left:160%; top:3%;'>
       <div class = 'bird-wings'>UU</div>
     </div>
+    <div class = 'dragon' id = 'red_dragon' style = 'left:-20%; top: 5%;'></div>
     <div class = 'grass'></div>
     <div class = 'forest' style = 'position: absolute;
   top:60%;
@@ -174,5 +177,68 @@
             </div>
     </div>
 </div>
+<script>
+  dragon = document.getElementById('red_dragon');
+  guard_1 = document.getElementById('pixel-guard-1');
+  guard_2 = document.getElementById('pixel-guard-2');
+
+  function createFireball() {
+            const fireball = document.createElement('div');
+            fireball.classList.add('fireball');
+            fireball.id = 'fireball';
+            fireball.style.top = '-10%';
+            fireball.style.left = '20%'; // Adjust the initial position as needed
+            dragon.appendChild(fireball);
+  }
+
+  function dragon_flight() {
+      let i = 1;
+      const interval = setInterval(function() {
+          if(i < 101){
+          if (i <= 30) {
+            if(i == 1){
+              guard_1.classList.add('scared');
+              guard_2.classList.add('scared');
+            }
+              const x_movement = i*1.5;
+              dragon.style.left = x_movement + '%';
+              i++;
+          } else {
+              // Fire-breathing pause
+              if(i > 30 & i <= 45){
+                  if(i == 31){
+                      createFireball();
+                  }
+              i++;
+          } else {
+              if(i > 45 & i <= 100){
+                  if(i == 46){
+                      fireball = document.getElementById('fireball');
+                      dragon.removeChild(fireball);
+                  }
+              // Fly away to right of screen
+              const x_movement = (i - 15)*1.5;
+              dragon.style.left = x_movement + '%';
+              i++;
+              if(i == 100){
+              guard_1.classList.remove('scared');
+              guard_2.classList.remove('scared');
+              }
+          }
+          }
+          }
+      } else {
+          clearInterval(interval);
+      }
+      }, 100); // Adjust the delay (in milliseconds) between each movement
+      guard_1.classList.remove('scared');
+      guard_2.classList.remove('scared');
+  }
+
+    Shiny.addCustomMessageHandler('start_dragon_flight', function(data) {
+       eval(data.message)
+      });
+
+</script>
 </body>
 </html>

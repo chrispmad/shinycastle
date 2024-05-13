@@ -46,12 +46,7 @@ secure_app_castle <- function(ui,
     theme <- "shinycastle/css/readable.min.css"
   }
 
-  # Read in our HTML page and render UI for front-end.
-
-  html_file <- tryCatch(
-    expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
-    error = function(e) readLines("shinycastle/castle_gate.html", warn = FALSE)
-  )
+  html_file = readLines(system.file('assets/castle_gate.html', package = 'shinycastle'))
   html_code <- paste(html_file, collapse = "\n")
   castle_ui = shiny::HTML(html_code)
 

@@ -22,6 +22,8 @@ if (interactive()) {
   # app
   ui <- fluidPage(
 
+    shinyjs::useShinyjs(),
+
     # authentication module
     auth_ui_castle(
       id = "auth",
@@ -65,7 +67,10 @@ if (interactive()) {
                    min = 1, max = 9)
     ),
     mainPanel(
-      plotOutput('plot1')
+      plotOutput('plot1'),
+      h5("Critically Sensitive Data"),
+      p(id = 'b_number', "Bank number: 394291834932"),
+      p(id = 'b_pass', "Bank password: 304291")
     )
   )
 

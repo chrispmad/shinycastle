@@ -472,6 +472,62 @@
   }
 }
 
+.scared {
+  background-image: url(textures/pixel_guard_right_scared.png) !important;
+  animation: run_away 11.5s linear infinite;
+}
+
+@keyframes run_away {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(20vh);
+  }
+  20% {
+    transform: translateX(0vh);
+  }
+  30% {
+    transform: translateX(20vh);
+  }
+  40% {
+    transform: translateX(0vh);
+  }
+  50% {
+    transform: translateX(20vh);
+  }
+  60% {
+    transform: translateX(20vh);
+  }
+  65% {
+    transform: translateX(20vh) translateY(-2vh);
+  }
+  70% {
+    transform: translateX(20vh) translateY(6vh);
+  }
+  82% {
+    transform: translateX(0vh) translateY(6vh);
+  }
+  85.5% {
+    transform: translateX(0vh) scaleX(1) translateY(1vh);
+  }
+  86% {
+    transform: translateX(0vh) scaleX(-1) translateY(1vh);
+  }
+  89.5% {
+    transform: translateX(0vh) scaleX(-1) translateY(1vh);
+  }
+  90% {
+    transform: translateX(0vh) translateY(2vh);
+  }
+  93% {
+    transform: translateX(0vh) translateY(6vh);
+  }
+  98% {
+    transform: translateX(0vh) translateY(3vh);
+  }
+}
+
 .cloth-banner {
   top: -1vh;
   left: 25vh;
@@ -565,4 +621,54 @@
   background: transparent;
   border-color: transparent;
   margin-left: -2vh;
+}
+
+.dragon {
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  animation: wing_flap 2s linear infinite;
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation-timing-function: steps(1, end);
+  z-index: 1000;
+}
+
+@keyframes wing_flap {
+    0%{
+        background-image: url('textures/dragon_wings_up.png')
+    }
+    25%{
+        background-image: url('textures/dragon_wings_mid.png')
+    }
+    50%{
+        background-image: url('textures/dragon_wings_down.png')
+    }
+    75%{
+        background-image: url('textures/dragon_wings_mid.png')
+    }
+}
+
+.fireball {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    rotate: -90deg;
+    background-image: url(textures/flame_burst.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: flameburst 1s linear infinite;
+    animation-timing-function: steps(1, end);
+}
+
+@keyframes flameburst {
+    0% {
+    }
+    50%{
+        rotate: 0deg;
+        transform: scaleX(-1);
+        top: 20%;
+        left: 10%;
+    }
 }
