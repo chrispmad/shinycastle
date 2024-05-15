@@ -4,6 +4,16 @@
     overflow: hidden;
 }
 
+.mountains {
+  position: absolute;
+  top: 15%;
+  left: 0%;
+  width: 100%;
+  height: 50%;
+  background-image: url(textures/mountain_backdrop.png);
+  background-size: contain;
+}
+
 .sky {
     /*background: linear-gradient(to top right, #87CEEB, #87CEFA, #B0E0E6, #ADD8E6, #F0F8FF);*/
     position: absolute;
@@ -241,6 +251,11 @@
   animation night_vis 80s linear infinite;
 }
 
+.lute:hover {
+  border: 2px solid gold;
+}
+
+
 @keyframes night_vis {
   0%{
     mix-blend-mode: normal;
@@ -327,10 +342,10 @@
 
 @keyframes wing_flap {
   0% {
-    transform: rotate(0);
+    transform: rotateX(0);
   }
   50% {
-    transform: rotate(180deg);
+    transform: rotateX(180deg);
   }
 }
 
@@ -376,7 +391,7 @@
     width: 18vh !important;
     height: 27vh;
     border-radius: 2%;
-    background-image: url(textures/light_wood_boards.png);
+    background-image: url(textures/light_wood_boards_lowres.png);
     background-repeat: repeat-y; /* Repeat in Y direction */
     background-size: 18vh 50px; /* Stretch to fit the container in X direction */
     position: relative;
@@ -540,12 +555,15 @@
 }
 
 .grass {
-    background-color: darkgreen;
     position: absolute;
-    top: 60%;
+    top: 55%;
     left: 0%;
     width: 100%;
-    height: 40%;
+    height: 47%;
+    background-image: url(textures/grassy_hills.png);
+    background-size: cover;
+    background-repeat: round;
+    image-rendering: pixelated;
 }
 
 .forest {
@@ -563,6 +581,7 @@
   width: 200px;
   background-size: contain;
   z-index: 100;
+  animation: veg_dance 3s ease infinite;
 }
 
 .tree2 {
@@ -572,6 +591,25 @@
   width: 200px;
   background-size: contain;
   z-index: 100;
+  animation: veg_dance 3s ease infinite;
+}
+
+@keyframes veg_dance {
+  0% {
+    transform: scaleY(0.95) scaleX(1.05);
+  }
+  25% {
+    transform: scaleY(1.05) scaleX(0.95)  skew(-5deg, 0deg) translateY(-5%);
+  }
+  50% {
+    transform: scaleY(0.95) scaleX(1.05);
+  }
+  75% {
+    transform: scaleY(1.05) scaleX(0.95)  skew(5deg, 0deg)  translateY(-5%);
+  }
+  100% {
+    transform: scaleY(0.95) scaleX(1.05);
+  }
 }
 
 .moat {
@@ -581,9 +619,10 @@
     top: 60vh;
     left: 20%;
     background-color: darkblue;
-    -webkit-clip-path: polygon(4% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, % 0);
-    clip-path: polygon(4% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 94% 0);
+    -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+    clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
 }
+
 .wave {
     width: 40px;
     height: 20px;
@@ -669,6 +708,15 @@
         rotate: 0deg;
         transform: scaleX(-1);
         top: 20%;
-        left: 10%;
     }
 }
+
+.burned {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        mix-blend-mode: darken; /* Blend mode to overlay the speckled pattern */
+    }

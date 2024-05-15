@@ -14,6 +14,11 @@
         play.play();
     }
 
+    function StopMusic() {
+      var play=document.getElementById("music");
+      play.pause();
+    }
+
     $(document).ready(function(){
 
         // Bind the button to authenticate to the enter key (I think?)
@@ -29,13 +34,25 @@
         dragon = document.getElementById('red_dragon');
 
         var music_is_playing = false;
+        lute_clicked = false;
+
+        setInterval(function() {
+          if(music_is_playing == false & lute_clicked == false){
+            PlayMusic();
+            music_is_playing = true;
+          }
+        }, 1000);
 
         // Click effects
         music_box.addEventListener('click', function() {
             if(!music_is_playing){
                 PlayMusic();
+                music_is_playing = true;
+            } else {
+                StopMusic();
+                music_is_playing = false;
+                lute_clicked = true;
             }
-            music_is_playing = true;
         });
 
         //gate.addEventListener('click', function() {
@@ -80,6 +97,7 @@
       <div class = 'bird-wings'>UU</div>
     </div>
     <div class = 'dragon' id = 'red_dragon' style = 'left:-20%; top: 5%;'></div>
+    <div class = 'mountains'></div>
     <div class = 'grass'></div>
     <div class = 'forest' style = 'position: absolute;
   top:60%;
@@ -100,7 +118,7 @@
         <div class = 'wave wave-delay' style = 'left:60%'></div>
         <div class = 'wave' style = 'left:70%; top:75%'></div>
     </div>
-    <div class = "castle">
+    <div class = "castle" id = 'castle'>
         <div class="tower left">
           <div class = 'pixel-guard' id = 'pixel-guard-1'></div>
           <div class = "crenellation cren-left"></div>
@@ -125,6 +143,9 @@
     <div class = 'night-screen'></div>
     <audio id = "music">
     <source src = "https://cdn.uppbeat.io/audio-files/0e5573c69208594d8a7e799df2ff2bcc/396ec6405ec28210ded6fd46cc959dd1/b8e8d420316541b5a2353493561a5f5c/STREAMING-feast-days-simon-folwar-main-version-29943-02-25.mp3" type = "audio/mpeg">
+    </audio>
+    <audio id = 'dragon_firebreath_noise'>
+      <source src = "https://cdn.freesound.org/previews/423/423009_3325582-lq.ogg" type = "audio/ogg">
     </audio>
             <br/>
             <div style="height: 22vh;"></div>
@@ -181,48 +202,73 @@
   dragon = document.getElementById('red_dragon');
   guard_1 = document.getElementById('pixel-guard-1');
   guard_2 = document.getElementById('pixel-guard-2');
+  dragon_firebreath_noise = document.getElementById('dragon_firebreath_noise');
 
   function createFireball() {
             const fireball = document.createElement('div');
             fireball.classList.add('fireball');
             fireball.id = 'fireball';
-            fireball.style.top = '-10%';
-            fireball.style.left = '20%'; // Adjust the initial position as needed
+            fireball.style.top = '20%';
+            fireball.style.left = '100%'; // Adjust the initial position as needed
             dragon.appendChild(fireball);
   }
 
   function dragon_flight() {
       let i = 1;
+      // Get initial dragon position.
+      // drag_pos_i = parseFloat(dragon.style.left);
+      drag_pos_i = -20;
+      // Define movement animation
       const interval = setInterval(function() {
           if(i < 101){
+            // First bit: flying in from left of screen
           if (i <= 30) {
             if(i == 1){
               guard_1.classList.add('scared');
               guard_2.classList.add('scared');
             }
-              const x_movement = i*1.5;
-              dragon.style.left = x_movement + '%';
+            if(i == 10){
+              dragon_firebreath_noise.play();
+            }
+            const x_movement = i*1.5;
+              dragon.style.left = drag_pos_i + x_movement + '%';
               i++;
           } else {
               // Fire-breathing pause
               if(i > 30 & i <= 45){
                   if(i == 31){
                       createFireball();
+                      add_burn_marks();
                   }
               i++;
           } else {
+            // Dragon flies to the right, off-screen.
               if(i > 45 & i <= 100){
                   if(i == 46){
+                    // Remove fireball
                       fireball = document.getElementById('fireball');
                       dragon.removeChild(fireball);
                   }
               // Fly away to right of screen
               const x_movement = (i - 15)*1.5;
-              dragon.style.left = x_movement + '%';
+              dragon.style.left = drag_pos_i + x_movement + '%';
               i++;
+              // Gradually reduce opacity of burn marks on castle
+              if(i == 80) {
+                burned_bits_container = document.getElementById('burned-bits-container');
+                burned_bits_container.style.opacity = 0.5;
+                burned_bits_container.style.mixBlendMode = 'multiply';
+              }
+              if(i == 90) {
+                burned_bits_container.style.opacity = 0.25;
+                burned_bits_container.style.mixBlendMode = 'multiply';
+              }
               if(i == 100){
-              guard_1.classList.remove('scared');
-              guard_2.classList.remove('scared');
+                // Reset!
+                guard_1.classList.remove('scared');
+                guard_2.classList.remove('scared');
+                castle.removeChild(burned_bits_container);
+                dragon.style.left = drag_pos_i + '%';
               }
           }
           }
@@ -235,9 +281,56 @@
       guard_2.classList.remove('scared');
   }
 
+    // Define function to add burn markings to castle
+    function add_burn_marks(){
+
+        burn_marks = Array.from(['url(shinycastle/textures/flame_char_1.png)',
+'url(shinycastle/textures/flame_char_2.png)',
+'url(shinycastle/textures/flame_char_3.png)']);
+
+        burned_bits_container = document.createElement('div');
+        burned_bits_container.id = 'burned-bits-container';
+        burned_bits_container.style.position = 'absolute';
+        burned_bits_container.style.top = '-20%';
+        burned_bits_container.style.width = '100%';
+        burned_bits_container.style.left = '0';
+        burned_bits_container.style.height = '150%';
+        burned_bits_container.style.overflow = 'hidden';
+        burned_bits_container.style.clipPath = 'polygon(0 0, 30% 0, 30% 40%, 50% 40%, 50% 0, 100% 0, 100% 100%, 0 100%)';
+
+        castle = document.getElementById('castle');
+        castle.appendChild(burned_bits_container);
+
+        for(let i = 1; i<= 5; i++){
+          burned_bits = document.createElement('div');
+
+          rando_y = Number.parseInt(Math.random() * 40);
+          rando_x = Number.parseInt(Math.random() * 40);
+          size = Number.parseInt(Math.random() * 10);
+          rotation = Number.parseInt(Math.random() * 360);
+          the_opac = Number.parseInt(Math.random() * 100) / 100;
+          the_width = 100 * size + 'px';
+          the_height = 100 * size + 'px';
+          the_decal_number = Math.floor(Math.random() * 3);
+          the_decal = burn_marks[the_decal_number];
+
+          burned_bits.style.position = 'absolute';
+          burned_bits.style.left = rando_x + '%';
+          burned_bits.style.top = rando_y + '%';
+          burned_bits.style.width = the_width;
+          burned_bits.style.height = the_height;
+          burned_bits.style.rotate = rotation + 'deg';
+          burned_bits.style.opacity = the_opac;
+          burned_bits.style.backgroundImage = the_decal;
+
+          burned_bits.classList.add('burned');
+          burned_bits_container.appendChild(burned_bits);
+        }
+    }
+
     Shiny.addCustomMessageHandler('start_dragon_flight', function(data) {
        eval(data.message)
-      });
+    });
 
 </script>
 </body>
