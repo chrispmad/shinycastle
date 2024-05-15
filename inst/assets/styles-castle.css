@@ -336,11 +336,11 @@
   width: 25px;
   height: 25px;
   font-family: cursive;
-  animation: wing_flap 2s linear infinite;
+  animation: bird_wing_flap 2s linear infinite;
   animation-timing-function:steps(1);
 }
 
-@keyframes wing_flap {
+@keyframes bird_wing_flap {
   0% {
     transform: rotateX(0);
   }
@@ -666,7 +666,7 @@
   position: absolute;
   width: 200px;
   height: 150px;
-  animation: wing_flap 2s linear infinite;
+  animation: dragon_wing_flap 2s linear infinite;
   background-size: contain;
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -674,7 +674,7 @@
   z-index: 1000;
 }
 
-@keyframes wing_flap {
+@keyframes dragon_wing_flap {
     0%{
         background-image: url('textures/dragon_wings_up.png')
     }
