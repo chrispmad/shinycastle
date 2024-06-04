@@ -1,0 +1,149 @@
+@media only screen and (max-width: 360px) {
+  .castle {
+      width: 82%;
+      height: 50%;
+      top: 15%;
+      left: 10%;
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      top: 30%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+
+  .gate-hole {
+      width: 20%;
+      height: 55%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      top: 73%;
+      left: 40%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+
+  .tower {
+    width: 35%;
+    height: 100%;
+    top: 10%;
+    border: 3px solid black;
+    background-image: url(textures/stone_wall_lowres.png);
+    position: absolute;
+    bottom: 0;
+    border-radius: 4% 4% 0 0;
+  }
+  .tower.left {
+      left:5%;
+  }
+  .tower.right {
+      left:60%;
+  }
+
+  .
+}
+
+@media only screen and (min-width: 361px) and (max-width: 1024px) {
+  .castle {
+      width: 50%;
+      height: 50%;
+      top: 15%;
+      left: 0%;
+      margin-left: 25%;
+      margin-right: 25%;
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      margin: 15% auto;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+  .gate-hole {
+      width: 20%;
+      height: 55%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      top: 73%;
+      left: 40%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .castle {
+      width: 50%;
+      height: 50%;
+      top: 15%;
+      left: 0%;
+      margin-left: 25%;
+      margin-right: 25%;
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      margin: 15% auto;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+  .gate-hole {
+      width: 20%;
+      height: 55%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      top: 73%;
+      left: 40%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+}

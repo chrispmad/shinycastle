@@ -3,6 +3,7 @@
 <head>
     <link href="shinycastle/styles-auth.css" rel="stylesheet">
     <link href="shinycastle/styles-castle.css" rel="stylesheet">
+    <link href="shinycastle/castle-dimension-styles.css" rel="stylesheet">
     <script src = "shinycastle/bindEnter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <meta charset="UTF-8">
@@ -104,8 +105,8 @@
   left:0%;
   width:100%;
   height:100%;'>
-      <div class = 'tree1' style = 'top: -10%; left: 80%; width: 250px; height: 250px; z-index: 105;'></div>
-      <div class = 'tree2' style = 'top: 0%; left: 76%; width: 225px; height: 225px; z-index: 105;'></div>
+      <div class = 'tree1' style = 'top: -10%; left: 80%; width: 35%; height: 35%; z-index: 105;'></div>
+      <div class = 'tree2' style = 'top: 0%; left: 76%; width: 32%; height: 32%; z-index: 105;'></div>
       <div class = 'tree2' style = 'top: 0%; left: 0%;'></div>
       <div class = 'tree2' style = 'top: 10%; left: 25%;'></div>
       <div class = 'tree1' style = 'top: -20%; left: 5%;'></div>
@@ -128,7 +129,53 @@
             <div class = "crenellation cren-right"></div>
         </div>
         <div class="castle-gate">
-          <div class = "cloth-banner"></div>
+          <div class = "cloth-banner">
+            <div class="row">
+              <div class="col-sm-6 offset-md-2 col-sm-offset-2">
+                <div class="panel panel-primary panel-in-wall">
+                  <div class="panel-body" style = "padding:5%;">
+                    <div style="display:none">
+                      <div class="row">
+                        <div class="col-sm-4 offset-md-4 col-sm-offset-4">
+                          <div id="auth-label_language" class="shiny-html-output"></div>
+                        </div>
+                        <div class="col-sm-6" style = "padding-left:2%;padding-right:2%;">
+                          <div style="text-align: left;">
+                            <div class="form-group shiny-input-container" style="width:100%;">
+                              <label class="control-label shiny-label-null" for="auth-language" id="auth-language-label"></label>
+                              <div>
+                                <select id="auth-language" class="shiny-input-select"><option value="en" selected>English</option></select>
+                                <script type="application/json" data-for="auth-language" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "med-text" style="text-align: center; margin-bottom:-2rem; z-index: 300;">
+                      <h3 id="auth-shinymanager-auth-head" style = "font-size:20px;">Please Authenticate</h3>
+                    </div>
+                    <br/>
+                    <div class = "row" style = "margin-left:-2%; margin-right:-2%;">
+                      <div class="col-sm-6" style = "padding-left:2%;padding-right:2%;">
+                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                          <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
+                          <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
+                        </div>
+                      </div>
+                      <div class="col-sm-6"  style = "padding-left:2%;padding-right:2%;">
+                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                          <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
+                          <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+          </div>
           <div class = 'gate-hole'>
                 <!--<div class="gate" id = 'gate'>-->
                   <div id="auth-container-btn-ok" style = "transition: transform 2s ease; transform-origin: bottom;">
@@ -147,56 +194,6 @@
     <audio id = 'dragon_firebreath_noise'>
       <source src = "https://cdn.freesound.org/previews/423/423009_3325582-lq.ogg" type = "audio/ogg">
     </audio>
-            <br/>
-            <div style="height: 22vh;"></div>
-            <br/>
-            <div class="row">
-              <div class="col-sm-4 offset-md-4 col-sm-offset-4">
-                <div class="panel panel-primary panel-in-wall">
-                  <div class="panel-body">
-                    <div style="display:none">
-                      <div class="row">
-                        <div class="col-sm-4 offset-md-4 col-sm-offset-4">
-                          <div id="auth-label_language" class="shiny-html-output"></div>
-                        </div>
-                        <div class="col-sm-4">
-                          <div style="text-align: left; font-size: px;">
-                            <div class="form-group shiny-input-container" style="width:100%;">
-                              <label class="control-label shiny-label-null" for="auth-language" id="auth-language-label"></label>
-                              <div>
-                                <select id="auth-language" class="shiny-input-select"><option value="en" selected>English</option></select>
-                                <script type="application/json" data-for="auth-language" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class = "med-text" style="text-align: center; margin-bottom:-2rem; z-index: 300;">
-                      <h3 id="auth-shinymanager-auth-head">Please Authenticate</h3>
-                    </div>
-                    <br/>
-                    <div class = "row">
-                      <div class = "col-sm-2"></div>
-                      <div class="col-sm-4">
-                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
-                          <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
-                          <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
-                          <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
-                          <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
-                        </div>
-                      </div>
-                      <div class = "col-sm-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-    </div>
 </div>
 <script>
   dragon = document.getElementById('red_dragon');

@@ -1,6 +1,6 @@
 /* Define styles for the castle gate */
 #container {
-    perspective: 500px;
+    /*perspective: 500px;*/
     overflow: hidden;
 }
 
@@ -361,45 +361,6 @@
     }
 }
 
-.castle {
-    width: 100vh;
-    height: 50vh;
-    top: 15%;
-    left: 25%;
-    position: absolute;
-}
-.castle-gate {
-    width: 100vh;
-    height: 50vh;
-    background-image: url(textures/stone_wall_lowres.png);
-    position: relative;
-    margin: 100px auto;
-    border-radius: 1%;
-    border: 2px solid black;
-}
-.gate-hole {
-    width: 20vh;
-    height: 28vh;
-    border-radius: 5%;
-    background-color: black;
-    position: relative;
-    top: 45%;
-    left: 40%;
-}
-/* Draw the gate */
-.gate {
-    width: 18vh !important;
-    height: 27vh;
-    border-radius: 2%;
-    background-image: url(textures/light_wood_boards_lowres.png);
-    background-repeat: repeat-y; /* Repeat in Y direction */
-    background-size: 18vh 50px; /* Stretch to fit the container in X direction */
-    position: relative;
-    top: 1vh;
-    left: 1vh;
-    transition: transform 2s ease; /* Set a longer transition duration */
-    transform-origin: bottom;
-}
 .gate:hover {
     border: 2px solid darkred;
 }
@@ -418,37 +379,22 @@
     }
 }
 /* Draw the towers */
-.tower {
-    width: 25vh;
-    height: 50vh;
-    top: 0%;
-    border: 3px solid black;
-    background-image: url(textures/stone_wall_lowres.png);
-    position: absolute;
-    bottom: 0;
-    border-radius: 4% 4% 0 0;
-}
-.tower.left {
-    left:5vh;
-}
-.tower.right {
-    left:70vh;
-}
+
 .crenellation {
     position: absolute;
-    width: 30vh;
-    height: 10vh;
-    top: -7.5vh;
+    width: 135%;
+    height: 20%;
+    top: -16%;
     border: 2px solid black;
     background-image: url(textures/stone_wall_lowres.png);
     -webkit-clip-path: polygon(0 0, 20% 0%, 20% 10%, 40% 10%, 40% 0%, 60% 0%, 60% 10%, 80% 10%, 80% , 100% 0%, 100% 100%, 0% 100%);
     clip-path: polygon(0 0, 20% 0%, 20% 10%, 40% 10%, 40% 0%, 60% 0%, 60% 10%, 80% 10%, 80% 0%, 100% , 100% 100%, 0% 100%);
 }
 .cren-left {
-    left: -3vh;
+    left: -18%;
 }
 .cren-right {
-    left: -3vh;
+    left: -18%;
 }
 
 .pixel-guard {
@@ -577,9 +523,10 @@
 .tree1 {
   background-image: url(textures/tree_1.png);
   position: absolute;
-  height: 200px;
-  width: 200px;
+  height: 27%;
+  width: 27%;
   background-size: contain;
+  background-repeat: no-repeat;
   z-index: 100;
   animation: veg_dance 3s ease infinite;
 }
@@ -587,9 +534,10 @@
 .tree2 {
   background-image: url(textures/tree_2.png);
   position: absolute;
-  height: 200px;
-  width: 200px;
+  height: 27%;
+  width: 27%;
   background-size: contain;
+  background-repeat: no-repeat;
   z-index: 100;
   animation: veg_dance 3s ease infinite;
 }
@@ -614,9 +562,9 @@
 
 .moat {
     position: absolute;
-    width: 120vh;
-    height: 30vh;
-    top: 60vh;
+    width: 60%;
+    height: 30%;
+    top: 60%;
     left: 20%;
     background-color: darkblue;
     -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
@@ -664,8 +612,8 @@
 
 .dragon {
   position: absolute;
-  width: 200px;
-  height: 150px;
+  width: 60%;
+  height: 40%;
   animation: dragon_wing_flap 2s linear infinite;
   background-size: contain;
   background-repeat: no-repeat;
