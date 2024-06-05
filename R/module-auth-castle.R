@@ -168,8 +168,12 @@ auth_server_castle <- function(input, output, session,
     }
 
     if (isTRUE(res_auth$result) & !locked) {
-      shinyjs::toggleClass("container-btn-ok", "gate-down")
+
+      # Lower the drawbridge!
+      session$sendCustomMessage("enter_castle", "clicked")
+
       Sys.sleep(2)
+
       removeUI(selector = jns("auth-mod"))
       authentication$result <- TRUE
       authentication$user <- input$user_id

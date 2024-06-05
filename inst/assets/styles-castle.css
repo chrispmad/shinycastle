@@ -122,12 +122,12 @@
 
 .moon {
   width: 50px;
-    height: 50px;
-    position: absolute;
-    background-size: contain;
-    background-image: url(textures/moon.png);
-    animation: moon_bob 80s linear infinite;
-    mix-blend-mode: lighten;
+  height: 50px;
+  position: absolute;
+  background-size: contain;
+  background-image: url(textures/moon.png);
+  animation: moon_bob 80s linear infinite;
+  mix-blend-mode: lighten;
 }
 
 @keyframes moon_bob {
@@ -238,12 +238,13 @@
     opacity: 0;
   }
 }
+
 .lute {
   position: absolute;
   top: 5%;
   left: 46%;
-  width: 10vh;
-  height: 10vh;
+  width: 75px;
+  height: 75px;
   image-rendering: pixelated;
   background-image: url(https://cdn-icons-png.flaticon.com/512/13/13217.png);
   background-size: cover;
@@ -276,7 +277,6 @@
 
 .music-box:hover {
   border: 2px solid gold;
-
 }
 
 .cloud {
@@ -364,9 +364,11 @@
 .gate:hover {
     border: 2px solid darkred;
 }
+
 .gate-down {
     transform: rotateX(120deg);
 }
+
 @keyframes open_gate {
     0% {
         transform: rotateX(0deg);
@@ -409,95 +411,9 @@
   animation: patrol 30s linear infinite;
 }
 
-@keyframes patrol {
-  0% {
-    transform: translateX(0);
-  }
-  10% {
-    transform: translateX(0);
-  }
-  46% {
-    transform: translateX(20vh);
-  }
-  50% {
-    transform: translateX(20vh) scaleX(-1);
-  }
-  52% {
-    transform: translateX(20vh) scaleX(-1);
-  }
-  90% {
-    transform: translateX(0) scaleX(-1);
-  }
-  96% {
-    transform: translateX(0);
-  }
-}
-
 .scared {
   background-image: url(textures/pixel_guard_right_scared.png) !important;
   animation: run_away 11.5s linear infinite;
-}
-
-@keyframes run_away {
-  0% {
-    transform: translateX(0);
-  }
-  10% {
-    transform: translateX(20vh);
-  }
-  20% {
-    transform: translateX(0vh);
-  }
-  30% {
-    transform: translateX(20vh);
-  }
-  40% {
-    transform: translateX(0vh);
-  }
-  50% {
-    transform: translateX(20vh);
-  }
-  60% {
-    transform: translateX(20vh);
-  }
-  65% {
-    transform: translateX(20vh) translateY(-2vh);
-  }
-  70% {
-    transform: translateX(20vh) translateY(6vh);
-  }
-  82% {
-    transform: translateX(0vh) translateY(6vh);
-  }
-  85.5% {
-    transform: translateX(0vh) scaleX(1) translateY(1vh);
-  }
-  86% {
-    transform: translateX(0vh) scaleX(-1) translateY(1vh);
-  }
-  89.5% {
-    transform: translateX(0vh) scaleX(-1) translateY(1vh);
-  }
-  90% {
-    transform: translateX(0vh) translateY(2vh);
-  }
-  93% {
-    transform: translateX(0vh) translateY(6vh);
-  }
-  98% {
-    transform: translateX(0vh) translateY(3vh);
-  }
-}
-
-.cloth-banner {
-  top: -1vh;
-  left: 25vh;
-  width: 60vh;
-  height: 200px;
-  position: absolute;
-  background-image: url(textures/medieval_banner.png);
-  background-size: 50vh 25vh;
-  background-repeat: no-repeat;
 }
 
 .grass {
@@ -529,6 +445,7 @@
   background-repeat: no-repeat;
   z-index: 100;
   animation: veg_dance 3s ease infinite;
+  pointer-events: none;
 }
 
 .tree2 {
@@ -540,6 +457,7 @@
   background-repeat: no-repeat;
   z-index: 100;
   animation: veg_dance 3s ease infinite;
+  pointer-events: none;
 }
 
 @keyframes veg_dance {
@@ -558,17 +476,6 @@
   100% {
     transform: scaleY(0.95) scaleX(1.05);
   }
-}
-
-.moat {
-    position: absolute;
-    width: 60%;
-    height: 30%;
-    top: 60%;
-    left: 20%;
-    background-color: darkblue;
-    -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
-    clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
 }
 
 .wave {
@@ -608,18 +515,6 @@
   background: transparent;
   border-color: transparent;
   margin-left: -2vh;
-}
-
-.dragon {
-  position: absolute;
-  width: 60%;
-  height: 40%;
-  animation: dragon_wing_flap 2s linear infinite;
-  background-size: contain;
-  background-repeat: no-repeat;
-  image-rendering: pixelated;
-  animation-timing-function: steps(1, end);
-  z-index: 1000;
 }
 
 @keyframes dragon_wing_flap {
