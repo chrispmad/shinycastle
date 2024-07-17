@@ -26,8 +26,9 @@
 #' @name secure-app-castle
 #'
 #' @example examples/secure_app_castle.R
-secure_app_castle <- function(ui,
+secure_app_portal <- function(ui,
                        ...,
+                       portal_type = NULL,
                        enable_admin = FALSE,
                        head_auth = NULL,
                        theme = NULL,
@@ -38,6 +39,10 @@ secure_app_castle <- function(ui,
     language <- "en"
   }
 
+  if(is.null(portal_type)){
+    # No portal type selected; pick one randomly
+    portal_type = sample(x = c("castle","space"), size = 1)
+  }
   lan <- use_language(language)
   ui <- force(ui)
   enable_admin <- force(enable_admin)
@@ -46,9 +51,11 @@ secure_app_castle <- function(ui,
     theme <- "shinycastle/css/readable.min.css"
   }
 
-  html_file = readLines(system.file('assets/castle_gate.html', package = 'shinycastle'))
+  # Depending on portal style, load in the HTML page.
+
+  html_file = readLines(system.file(paste0('assets/',portal_type,'_portal.html'), package = 'shinycastle'))
   html_code <- paste(html_file, collapse = "\n")
-  castle_ui = shiny::HTML(html_code)
+  portal_ui = shiny::HTML(html_code)
 
   function(request) {
     query <- parseQueryString(request$QUERY_STRING)
@@ -162,11 +169,7 @@ secure_app_castle <- function(ui,
       args$id <- "auth"
       args$lan <- lan
       fluidPage(
-        # theme = theme,
-        # tags$head(head_auth),
-        # uiOutput('castle_login_page'),
-        # do.call(auth_ui, args),
-        castle_ui,
+        portal_ui,
         shinymanager_where("authentication"),
         shinymanager_language(lan$get_language())
       )
@@ -206,7 +209,7 @@ secure_app_castle <- function(ui,
 #'  updateQueryString observe getDefaultReactiveDomain isolate invalidateLater
 #'
 #' @rdname secure-app
-secure_server_castle <- function(check_credentials,
+secure_server_portal <- function(check_credentials,
                           timeout = 15,
                           inputs_list = NULL,
                           max_users = NULL,
@@ -239,7 +242,7 @@ secure_server_castle <- function(check_credentials,
   })
 
   callModule(
-    module = auth_server_castle,
+    module = auth_server_portal,
     id = "auth",
     check_credentials = check_credentials,
     use_token = TRUE,

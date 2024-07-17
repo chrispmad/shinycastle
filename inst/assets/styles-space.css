@@ -1,0 +1,401 @@
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --clr-1: #052b2f;
+  --clr-2: #1d6748;
+  --clr-3: #269e94;
+  --clr-4: #9a3c3c;
+  --clr-5: #72236a;
+}
+
+#container {
+    perspective: 500px;
+    overflow: hidden;
+}
+
+.sky {
+    /*background: linear-gradient(to top right, #87CEEB, #87CEFA, #B0E0E6, #ADD8E6, #F0F8FF);*/
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 400%;
+    overflow: hidden;
+    /*background: linear-gradient(to bottom,  #ADD8E6 0%, #87CEEB 10%, #87CEFA 15%, lightyellow 25%, gold 25.75%, orange 30%, red 32.5%, purple 33.5%, darkblue 35%, black 50%, darkblue 65%, purple 67.5%, red 68.5%, orange 70%, gold 74.75%, lightyellow 75%, #87CEFA 85%, #87CEEB 90%, #ADD8E6 100%);*/
+    background: linear-gradient(to bottom,  #ADD8E6, #87CEEB, #87CEFA, darkblue, black, black, black, darkblue, #87CEFA, #87CEEB, #ADD8E6,  #ADD8E6);
+    animation: day_cycle 80s linear infinite;
+}
+
+.sun {
+    width: 5px;
+    height: 5px;
+    top: 50%;
+    left: 57%;
+    position: absolute;
+    z-index: 3;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25%;
+    box-shadow: 0 0 6px 6px white, /* Outer white glow */
+                0 0 10px 10px var(--clr-5); /* Inner yellow glow */
+    animation: sun-galaxy-track 120s linear infinite;
+}
+
+.moon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-size: contain;
+    background-image: url(textures/moon.png);
+    mix-blend-mode: lighten;
+}
+
+.firmament {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+}
+
+.starfield {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background-image: url(https://png2.cleanpng.com/sh/7468d39b82f38e3151ca9cb0dfab4508/L0KzQYm3VMIxN6dnj5H0aYP2gLBuTgRpbV54jNN7comwfrruiQQudppsgOY2c3v8Pb7wjPt6NahmkZ91aXfrhH70ifxsgV58ees2NXHnSbK9hvIzOGk1T6k3M0S4Q4W9UsQyPWM5SqM8NEm8QYS6Ub5xdpg=/kisspng-the-starry-night-night-sky-milky-way-light-milky-way-5ad9a6fb208077.3453462415242134991331.png);
+  background-size: cover;
+  background-position: 0% 31%;
+  animation: slight-shimmer 5s infinite ease;
+}
+
+@keyframes slight-shimmer {
+  from, to{
+    transform: rotate3d(0,0,0,0deg);
+  }
+  50%{
+    transform: rotate3d(1,1,1,2deg);
+  }
+}
+
+.starfield:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0)0%, rgba(0,0,0, 50%) 25%, rgb(0, 0, 0) 80%);
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  z-index: 0;
+  height: 3px;
+  background: white;
+  mix-blend-mode: lighten;
+  animation: twinkle 3s linear infinite;
+}
+
+@keyframes twinkle {
+  0%{
+    transform: rotateZ(0);
+  }
+  25%{
+    transform: rotateZ(-90deg);
+  }
+  50%{
+    transform: rotateZ(0);
+  }
+  75%{
+    transform: rotateZ(90deg);
+  }
+  100%{
+    transform: rotateZ(0);
+  }
+}
+
+.lute {
+  position: absolute;
+  top: 5%;
+  left: 46%;
+  width: 10vh;
+  z-index: 12;
+  height: 10vh;
+  filter: invert(1);
+  image-rendering: pixelated;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/13/13217.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.lute:hover {
+  border: 2px solid gold;
+}
+
+@keyframes night_vis {
+  0%{
+    mix-blend-mode: normal;
+  }
+  27.5%{
+    mix-blend-mode: normal;
+  }
+  60%{
+    mix-blend-mode: lighten;
+  }
+  85% {
+    mix-blend-mode: normal;
+  }
+  100%{
+    mix-blend-mode: normal;
+  }
+}
+
+.music-box:hover {
+    border: 2px solid gold;
+}
+
+.cloud {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: visible;
+    filter: brightness(30%);
+}
+
+.cloud:nth-child(1) {
+    top: 26%;
+    left: 65%;
+    width: 20vh;
+    height: 20vh;
+    background-image: url(textures/Cloud_1.png);
+}
+
+.cloud:nth-child(2) {
+    top: 65%;
+    left: 10%;
+    width: 45vh;
+    height: 60vh;
+    background-image: url(textures/Cloud_2.png);
+}
+
+.cloud:nth-child(3) {
+  top: 50%;
+  left: 20%;
+  width: 25vh;
+  height: 25vh;
+  background-image: url(textures/Cloud_3.png);
+  filter: hue-rotate(-180deg);
+  opacity: 0.3;
+  rotate: 45deg;
+}
+
+.spiral-galaxy-topdown {
+    position: absolute;
+    width: 30vh;
+    height: 30vh;
+    background-size: contain;
+    z-index: 2;
+    top: 60%;
+    left:70%;
+    background-image: url(https://freepngimg.com/thumb/galaxy/4-2-galaxy-picture.png);
+    animation: slow-spin-z 60s infinite;
+}
+
+.spiral-galaxy-sideon {
+  position: relative;
+  width: 42vh;
+  height: 30vh;
+  z-index: 2;
+  background-size: cover;
+  background-image: url(textures/spiral_galaxy_no_background.png);
+  animation: spin-spiral 120s linear infinite;
+  /*animation: slow-spin-z 180s infinite;*/
+}
+
+@keyframes spin-spiral {
+  0% {
+    transform: rotateX(65deg);
+  }
+  50% {
+    transform: rotateX(65deg) rotateZ(180deg) rotateY(3deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateZ(360deg);
+  }
+}
+
+@keyframes sun-galaxy-track {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-8vh) translateY(0vh);
+  }
+  75% {
+    transform: translateX(-4vh) translateY(-1vh);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slow-spin-z {
+    0% {
+        transform: rotateZ(0);
+    }
+    50% {
+        transform: rotateZ(0.5turn);
+    }
+    100% {
+        transform: rotateZ(1turn);
+    }
+}
+.space-text {
+    font-family: 'Comic Sans', serif; /* Medieval-style font */
+    color: #ffffff; /* Brownish color resembling old parchment */
+    text-shadow: 1px 1px 1px #000; /* Shadow to give depth */
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+.input-housing-div {
+  position: absolute;
+  visibility: visible;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.auth-box-anchor {
+  position: absolute;
+  /*top: 50%;
+  left: 45%;*/
+  top: 71%;
+  left: 73%;
+  width: 2%;
+  height: 5%;
+  z-index: inherit;
+  font-family: monospace;
+  text-align: center;
+}
+
+/*auth-box-anchor:hover {
+    filter: blur(0px);
+    opacity: 1;
+    visibility: visible;
+    transition: filter 3s ease, visibility 1s, opacity 3s ease;
+}*/
+
+.authentication-box {
+  position: relative;
+  top: -20vh;
+  left: -30vw;
+  width: 300px;
+  display: ruby-text;
+  z-index: inherit;
+  background: var(--clr-1);
+  text-align: center;
+  font-family: monospace;
+  padding: 10px;
+  filter: blur(10px);
+  opacity: 0;
+  border-radius: 1%;
+  transition: filter 3s ease, visibility 1s, opacity 3s ease;
+}
+
+.box-glow {
+  position: absolute;
+  inset: 0.5rem;
+  z-index: -1;
+  background: linear-gradient(
+    var(--gradient-angle),
+  var(--clr-1),
+  var(--clr-2),
+  var(--clr-3),
+  var(--clr-2),
+  var(--clr-1));
+  border-radius: inherit;
+  animation: rotation 5s linear infinite;
+}
+
+.authentication-box::after {
+  filter:blur(1rem);
+}
+
+@keyframes rotation {
+  0% {--gradient-angle: 0deg; }
+  100% {--gradient-angle: 360deg; }
+}
+
+.planet {
+    position: absolute;
+    width: 6vh;
+    height: 6vh;
+    z-index: 10;
+    margin: 0.05em auto;
+    background: #888 url(https://static.wikia.nocookie.net/planet-texture-maps/images/1/1d/Venus_Rework.png/revision/latest?cb=20190331041512.png) 0 0 repeat;
+    border-radius: 50%;
+    background-size: 300%;
+    animation: rotate 100s infinite linear;
+    transition: transform 200ms linear;
+    transform-style: preserve-3d;
+    box-shadow: inset 5px 0 20px 2px rgb(0,0,0);
+    color: #000;
+}
+
+.planet-huge {
+  position: absolute;
+  width: 160vh;
+  height: 160vh;
+  z-index: 10;
+  margin: 0.05em auto;
+  background: #888 url(https://static.wikia.nocookie.net/planet-texture-maps/images/1/1d/Venus_Rework.png/revision/latest?cb=20190331041512.png) 0 0 repeat;
+  border-radius: 50%;
+  background-size: 110%;
+  filter:hue-rotate(180deg);
+  animation: traverse-screen-rotating 400s infinite linear;
+  transition: transform 200ms linear;
+  transform-style: preserve-3d;
+  box-shadow: inset 40px 5px 40px 5px rgb(0,0,0);
+  color: #000;
+}
+
+@keyframes rotate {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 630px 0;
+    }
+}
+
+@keyframes traverse-screen-rotating {
+  0% {
+    transform: translate3d(-150vw,-10vh,0);
+    background-position: 0 0;
+  }
+  50% {
+  transform: translate3d(0,0,0);
+  background-position: 1200px 0;
+  }
+  100% {
+    transform: translate3d(150vw,10vh,0);
+    background-position: 2400px 0;
+  }
+}

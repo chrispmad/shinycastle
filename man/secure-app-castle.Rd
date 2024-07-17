@@ -2,12 +2,13 @@
 % Please edit documentation in R/secure-app-castle.R
 \name{secure-app-castle}
 \alias{secure-app-castle}
-\alias{secure_app_castle}
+\alias{secure_app_portal}
 \title{Secure a Shiny application with Castle log-in and manage authentication}
 \usage{
-secure_app_castle(
+secure_app_portal(
   ui,
   ...,
+  portal_type = NULL,
   enable_admin = FALSE,
   head_auth = NULL,
   theme = NULL,
@@ -46,53 +47,56 @@ A special input value will be accessible server-side with \code{input$shinymanag
 }
 \examples{
 if (interactive()) {
-  
+
   # define some credentials
   credentials <- data.frame(
     user = c("a", "shinymanager"),
     password = c("b", "12345"),
     stringsAsFactors = FALSE
   )
-  
+
   library(shiny)
-  library(shinymanager)
-  
+  library(shinycastle)
+
   ui <- fluidPage(
     tags$h2("My secure application"),
-    verbatimTextOutput("auth_output")
+    verbatimTextOutput("auth_output"),
+    h5("Critically Sensitive Data"),
+    p(id = 'b_number', "Bank number: 394291834932"),
+    p(id = 'b_pass', "Bank password: 304291")
   )
-  
+
   # Wrap your UI with secure_app
-  ui <- secure_app_custom(ui, choose_language = TRUE)
-  
+  ui <- secure_app_castle(ui, choose_language = TRUE)
+
   # change auth ui background ?
   # ui <- secure_app(ui,
-  #                  background  = "linear-gradient(rgba(0, 0, 255, 0.5), 
+  #                  background  = "linear-gradient(rgba(0, 0, 255, 0.5),
   #                  rgba(255, 255, 0, 0.5)),
   #                  url('https://www.r-project.org/logo/Rlogo.png')  no-repeat center fixed;")
-  
+
   server <- function(input, output, session) {
-    
+
     # call the server part
     # check_credentials returns a function to authenticate users
-    res_auth <- secure_server_custom(
+    res_auth <- secure_server_castle(
       check_credentials = check_credentials(credentials)
     )
-    
+
     output$auth_output <- renderPrint({
       reactiveValuesToList(res_auth)
     })
-    
+
     observe({
       print(input$shinymanager_where)
       print(input$shinymanager_language)
     })
-    
+
     # your classic server logic
-    
+
   }
-  
+
   shinyApp(ui, server)
-  
+
 }
 }

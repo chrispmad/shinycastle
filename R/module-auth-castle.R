@@ -21,7 +21,7 @@
 #' @importFrom shiny NS fluidRow column textInput passwordInput actionButton uiOutput
 #'
 #' @example examples/module-auth.R
-auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
+auth_ui_portal <- function(id, status = "primary", tags_top = NULL,
                            tags_bottom = NULL, background = NULL,
                            choose_language = NULL, lan = NULL, ...) {
 
@@ -30,7 +30,7 @@ auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
   if(is.null(lan)){
     lan <- use_language()
   }
-  uiOutput(ns('castle_login_page'))
+  uiOutput(ns('portal_login_page'))
 }
 
 
@@ -63,13 +63,19 @@ auth_ui_castle <- function(id, status = "primary", tags_top = NULL,
 #' @importFrom htmltools tags
 #' @importFrom shiny reactiveValues observeEvent removeUI updateQueryString insertUI is.reactive icon updateActionButton updateTextInput renderUI
 #' @importFrom stats setNames
-auth_server_castle <- function(input, output, session,
+auth_server_portal <- function(input, output, session,
                                check_credentials,
-                               use_token = FALSE, lan = NULL) {
+                               use_token = FALSE, lan = NULL,
+                               portal_type = NULL) {
 
   ns <- session$ns
   jns <- function(x) {
     paste0("#", ns(x))
+  }
+
+  if(is.null(portal_type)){
+    # No portal type selected; pick one randomly
+    portal_type = sample(x = c("castle","space"), size = 1)
   }
 
   if(!is.reactive(lan)){
@@ -81,20 +87,10 @@ auth_server_castle <- function(input, output, session,
   }
 
   # Read in our HTML page and render UI for front-end.
-  output$castle_login_page = renderUI({
-    # html_file <- tryCatch(
-    #   expr = readLines("inst/assets/castle_gate.html", warn = FALSE),
-    #   error = function(e) readLines("shinycastle/assets/castle_gate.html", warn = FALSE)
-    # )
-    html_file = readLines(system.file('assets/castle_gate.html', package = 'shinycastle'))
+  output$portal_login_page = renderUI({
+    html_file = readLines(system.file(paste0('assets/',portal_type,'_portal.html'), package = 'shinycastle'))
     html_code <- paste(html_file, collapse = "\n")
     shiny::HTML(html_code)
-    # tags$script(
-    #   "Shiny.addCustomMessageHandler('start_dragon_flight', function(data) {
-    #  eval(data.message)
-    # });"
-    # )
-
   })
 
   observe({

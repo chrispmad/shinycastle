@@ -2,12 +2,12 @@
 % Please edit documentation in R/module-auth-castle.R, R/module-auth.R
 \name{module-authentication}
 \alias{module-authentication}
-\alias{auth_ui_castle}
-\alias{auth_server_castle}
+\alias{auth_ui_portal}
+\alias{auth_server_portal}
 \alias{auth_server}
 \title{Authentication module}
 \usage{
-auth_ui_castle(
+auth_ui_portal(
   id,
   status = "primary",
   tags_top = NULL,
@@ -18,13 +18,14 @@ auth_ui_castle(
   ...
 )
 
-auth_server_castle(
+auth_server_portal(
   input,
   output,
   session,
   check_credentials,
   use_token = FALSE,
-  lan = NULL
+  lan = NULL,
+  portal_type = NULL
 )
 
 auth_server(

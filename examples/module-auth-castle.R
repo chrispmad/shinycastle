@@ -25,7 +25,7 @@ if (interactive()) {
     shinyjs::useShinyjs(),
 
     # authentication module
-    auth_ui_castle(
+    auth_ui_portal(
       id = "auth",
       # add image on top ?
       tags_top =
@@ -78,7 +78,7 @@ if (interactive()) {
 
     # authentication module
     auth <- callModule(
-      module = auth_server_castle,
+      module = auth_server_portal,
       id = "auth",
       check_credentials = check_credentials(credentials)
     )

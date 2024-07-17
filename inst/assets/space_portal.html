@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="shinycastle/styles-auth.css" rel="stylesheet">
+    <link href="shinycastle/styles-space.css" rel="stylesheet">
+    <script src = "shinycastle/bindEnter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+
+    var music_in_progress = false;
+
+    function PlayMusic(music_has_played_prior) {
+        var audio=document.getElementById("music");
+        if(music_has_played_prior == false){
+            audio.currentTime = 1318;
+            //music_has_played_prior = true;
+        }
+        //music_in_progress = true;
+        audio.play();
+    }
+
+    function StopMusic() {
+        var audio=document.getElementById("music");
+        audio.pause();
+        //music_in_progress = false;
+    }
+
+    $(document).ready(function(){
+
+        // Bind the button to authenticate to the enter key (I think?)
+        bindEnter('auth-');
+
+        gate_open = 0;
+
+        //gate = document.getElementById('gate');
+        music_box = document.getElementById('music_box');
+
+        var music_is_playing = false;
+        var music_has_played_prior = false;
+        lute_clicked = false;
+
+        //setInterval(function() {
+        //    if(music_is_playing == false & lute_clicked == false){
+        //      try {
+        //        console.log("Trying to play music");
+        //        PlayMusic(music_has_played_prior);
+        //        music_has_played_prior = true;
+        //        music_is_playing = true;
+        //      }
+        //      catch(err) {
+        //        console.log('no click yet');
+        //      }
+        //    }
+        //}, 1000);
+
+        // Click effects
+        music_box.addEventListener('click', function() {
+            if(!music_is_playing){
+              PlayMusic(music_has_played_prior);
+              music_has_played_prior = true;
+              music_is_playing = true;
+            } else {
+                StopMusic();
+                music_is_playing = false;
+                lute_clicked = true;
+            }
+        });
+    });
+</script>
+</head>
+<body>
+
+<div id = "auth-auth-mod" class = "panel-auth" style = "overflow: hidden;">
+<div class = 'container'>
+  <div id = 'firmament' class = 'firmament'>
+    <div class = 'starfield'>
+      <!--<div class = 'cloud'></div>
+      <div class = 'cloud'></div>
+      <div class = 'cloud'></div>-->
+      <div class = 'spiral-galaxy-topdown'></div>
+      <div class = 'galaxy' style = 'top:20%;left:15%;position:absolute;'>
+        <div class = 'spiral-galaxy-sideon'></div>
+        <div class = "sun"></div>
+      </div>
+      <div class = "planet"></div>
+    </div>
+    <div class = 'planet-huge' style = 'top:70vh;left:-40vw;'></div>
+  </div>
+  <div id = 'music_box' class = "lute"></div>
+  <audio id = "music">
+    <source src = "https://ia801705.us.archive.org/32/items/32.-oct-20/32.%20OCT_20.mp3" type = "audio/mpeg">
+  </audio>
+  <div class = 'input-housing-div'>
+    <br/>
+    <div style="height: 22vh;"></div>
+    <br/>
+    <div id = 'auth-box-anchor' class="row auth-box-anchor">
+      <!--<div class="col-sm-4 offset-md-4 col-sm-offset-4">
+        <div class="panel panel-primary panel-in-wall">-->
+          <div id = 'auth-box' class="panel-body authentication-box">
+            <div class = 'box-glow'></div>
+            <div style="display:none">
+              <div class="row">
+                <div class="col-sm-4 offset-md-4 col-sm-offset-4">
+                  <div id="auth-label_language" class="shiny-html-output"></div>
+                </div>
+                <div class="col-sm-4">
+                  <div style="text-align: left; font-size: px;">
+                    <div class="form-group shiny-input-container" style="width:100%;">
+                      <label class="control-label shiny-label-null" for="auth-language" id="auth-language-label"></label>
+                      <div>
+                        <select id="auth-language" class="shiny-input-select"><option value="en" selected>English</option></select>
+                        <script type="application/json" data-for="auth-language" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center; margin-bottom:-2rem; z-index: 300;">
+              <h3 id="auth-shinymanager-auth-head">Please Authenticate</h3>
+            </div>
+            <br/>
+            <div class = "row">
+              <!--<div class = "col-sm-2"></div>-->
+              <!--<div class="col-sm-4">-->
+                <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                  <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
+                  <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
+                </div>
+              </div>
+              <!--<div class="col-sm-4">-->
+              <div class = "row">
+                <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                  <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
+                  <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
+                </div>
+              </div>
+              <br/>
+              <div class = "row">
+                <div id="auth-container-btn-ok" style = "transition: transform 2s ease; transform-origin: bottom;">
+                      <button class="btn btn-default action-button med-text gate" id="auth-go_auth" type="button" style = "width:100%;">Enter</button>
+                    <!--</div>-->
+                    <div id="auth-result_auth"></div>
+                    <div id="auth-update_shinymanager_language" class="shiny-html-output"></div>
+                </div>
+              </div>
+              <!--<div class = "col-sm-2"></div>
+              <div id="auth-container-btn-ok" style = "transition: transform 2s ease; transform-origin: bottom;">
+                <button class="btn btn-default action-button" id="auth-go_auth" type="button" style = "width:100%;">Enter</button>
+                <div id="auth-result_auth"></div>
+                <div id="auth-update_shinymanager_language" class="shiny-html-output"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!--</div>
+    </div>-->
+  </div>
+</div>
+</div>
+<script>
+
+  function roll_stars_and_dust(container, number_stars, number_dusts){
+            for(let i = 1; i <= number_stars; i++){
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.id = 'star' + i;
+                star.style.top = Math.floor(Math.random() * 100) + '%';
+                star.style.left = Math.floor(Math.random() * 100) + '%'; // Adjust the initial position as needed
+                container.appendChild(star);
+            }
+            for(let i = 1; i <= number_dusts; i++){
+                const dust = document.createElement('div');
+                dust.id = 'dust-' + i;
+                dust.style.position = 'absolute';
+                dust.style.top = Math.ceil(Math.random() * 100) + '%';
+                dust.style.left = Math.ceil(Math.random() * 100) + '%';
+                dust.style.width = Math.ceil(Math.random() * 50) + 'vh';
+                dust.style.height = Math.ceil(Math.random() * 50) + 'vh';
+                dust.style.filter = "hue-rotate(" + Math.ceil(Math.random() * 360) + "deg)";
+                dust.style.backgroundImage = "url(inst/assets/textures/Cloud_" +  Math.ceil(Math.random() * 3) + ".png)";
+                dust.style.backgroundSize = "contain";
+                dust.style.backgroundRepeat = 'no-repeat';
+                dust.style.mixBlendMode = "color-burn";
+                dust.style.opacity = Math.random() * 2;
+                dust.style.rotate = Math.ceil(Math.random() * 360) + 'deg';
+                container.appendChild(dust);
+            }
+        }
+
+        // Reveal authentication box on click of galaxy
+        anchor = document.getElementById('auth-box-anchor');
+        auth_box = document.getElementById('auth-box');
+
+        anchor.addEventListener("click", function(){
+            auth_box.style.visibility = 'visible';
+            auth_box.style.filter = "blur(0px)";
+            auth_box.style.opacity = 1;
+            auth_box_shown = true;
+        });
+
+    container = document.getElementById('firmament');
+    roll_stars_and_dust(container, 100, 50);
+
+    //Shiny.addCustomMessageHandler('start_dragon_flight', function(data) {
+    //   eval(data.message)
+    //});
+
+</script>
+</body>
+</html>
