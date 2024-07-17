@@ -21,6 +21,7 @@ if (interactive()) {
   # Wrap your UI with secure_app
   ui <- secure_app_portal(ui, portal_type = 'space', choose_language = TRUE)
 
+
   # change auth ui background ?
   # ui <- secure_app(ui,
   #                  background  = "linear-gradient(rgba(0, 0, 255, 0.5),

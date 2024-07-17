@@ -1,0 +1,640 @@
+@media only screen and (max-width: 600px) {
+
+  .mountains {
+    top: 30%;
+  }
+
+  .moon {
+    left: 0%;
+    top: 75%;
+  }
+
+  .moat {
+    position: absolute;
+    width: 93%;
+    height: 30%;
+    top: 60%;
+    left: 5%;
+    background-color: darkblue;
+    -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+    clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+  }
+
+  .tree1 {
+    left: -40% !important;
+  }
+
+  .tree2 {
+    left: -40% !important;
+  }
+
+  .castle {
+      width: 82%;
+      height: 50%;
+      top: 20%;
+      left: 10%;
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      top: 30%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+
+  .gate-hole {
+      width: 20%;
+      height: 35%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      bottom: -30%;
+      left: 40%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      width: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+
+  .tower {
+    width: 35%;
+    height: 100%;
+    top: 10%;
+    border: 3px solid black;
+    background-image: url(textures/stone_wall_lowres.png);
+    position: absolute;
+    bottom: 0;
+    border-radius: 4% 4% 0 0;
+  }
+  .tower.left {
+      left:5%;
+  }
+  .tower.right {
+      left:60%;
+  }
+
+  .cloth-banner {
+    top: 0%;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+    position: absolute;
+    background-image: url(textures/medieval_banner.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .authenticate-bit {
+    text-align: center;
+    margin-bottom:-2rem;
+    margin-top: 20%;
+    z-index: 300;
+  }
+
+  .username-password-bit {
+    margin-left:20%;
+    margin-right:20%;
+  }
+
+  .username-bit {
+    margin-bottom: 0%;
+    margin-top: -5%;
+  }
+
+  .dragon {
+    position: absolute;
+    width: 60%;
+    height: 40%;
+    animation: dragon_wing_flap 2s linear infinite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    animation-timing-function: steps(1, end);
+    z-index: 1000;
+  }
+
+  @keyframes patrol {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(0);
+    }
+    46% {
+      transform: translateX(100%);
+    }
+    50% {
+      transform: translateX(100%) scaleX(-1);
+    }
+    52% {
+      transform: translateX(100%) scaleX(-1);
+    }
+    90% {
+      transform: translateX(0) scaleX(-1);
+    }
+    96% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes run_away {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(100%);
+    }
+    20% {
+      transform: translateX(0%);
+    }
+    30% {
+      transform: translateX(100%);
+    }
+    40% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+    60% {
+      transform: translateX(100%);
+    }
+    65% {
+      transform: translateX(100%) translateY(-2vh);
+    }
+    70% {
+      transform: translateX(100%) translateY(6vh);
+    }
+    82% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    85.5% {
+      transform: translateX(0%) scaleX(1) translateY(1vh);
+    }
+    86% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    89.5% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    90% {
+      transform: translateX(0%) translateY(2vh);
+    }
+    93% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    98% {
+      transform: translateX(0%) translateY(3vh);
+    }
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1400px){
+
+  .mountains {
+    top: 15%;
+  }
+
+  .moon {
+    left: 10%;
+    top: 75%;
+  }
+
+  .moat {
+    position: absolute;
+    width: 75%;
+    height: 30%;
+    top: 60%;
+    left: 12.5%;
+    background-color: darkblue;
+    -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+    clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+  }
+
+  .tree1 {
+    width: 25% !important;
+    height: 25% !important;
+  }
+
+  .tree2 {
+    width: 27% !important;
+    height: 27% !important;
+  }
+
+  .castle {
+      width: 60%;
+      height: 50%;
+      top: 20%;
+      left: 20%;
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      top: 30%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+
+  .gate-hole {
+      width: 20%;
+      height: 35%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      bottom: -30%;
+      left: 40%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      width: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+
+  .tower {
+    width: 35%;
+    height: 100%;
+    top: 10%;
+    border: 3px solid black;
+    background-image: url(textures/stone_wall_lowres.png);
+    position: absolute;
+    bottom: 0;
+    border-radius: 4% 4% 0 0;
+  }
+  .tower.left {
+      left:5%;
+  }
+  .tower.right {
+      left:60%;
+  }
+
+  .cloth-banner {
+    top: 0%;
+    left: 25%;
+    width: 50%;
+    height: 70%;
+    position: absolute;
+    background-image: url(textures/medieval_banner.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .authenticate-bit {
+    text-align: center;
+    margin-bottom:-2rem;
+    margin-top: 20%;
+    z-index: 300;
+  }
+
+  .username-password-bit {
+    margin-left:20%;
+    margin-right:20%;
+  }
+
+  .username-bit {
+    margin-bottom: 0%;
+    margin-top: -5%;
+  }
+
+  @keyframes flight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-5000%);
+    }
+  }
+
+  .dragon {
+    position: absolute;
+    width: 25%;
+    height: 25%;
+    animation: dragon_wing_flap 2s linear infinite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    animation-timing-function: steps(1, end);
+    z-index: 1000;
+  }
+
+  @keyframes patrol {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(0);
+    }
+    46% {
+      transform: translateX(300%);
+    }
+    50% {
+      transform: translateX(300%) scaleX(-1);
+    }
+    52% {
+      transform: translateX(300%) scaleX(-1);
+    }
+    90% {
+      transform: translateX(0) scaleX(-1);
+    }
+    96% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes run_away {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(300%);
+    }
+    20% {
+      transform: translateX(0%);
+    }
+    30% {
+      transform: translateX(300%);
+    }
+    40% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(300%);
+    }
+    60% {
+      transform: translateX(300%);
+    }
+    65% {
+      transform: translateX(300%) translateY(-2vh);
+    }
+    70% {
+      transform: translateX(300%) translateY(6vh);
+    }
+    82% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    85.5% {
+      transform: translateX(0%) scaleX(1) translateY(1vh);
+    }
+    86% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    89.5% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    90% {
+      transform: translateX(0%) translateY(2vh);
+    }
+    93% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    98% {
+      transform: translateX(0%) translateY(3vh);
+    }
+  }
+}
+
+@media only screen and (min-width: 1401px) {
+
+  .mountains {
+    top: 15%;
+  }
+
+  .moon {
+    left: 10%;
+    top: 75%;
+  }
+
+  .moat {
+    position: absolute;
+    width: 75%;
+    height: 30%;
+    top: 60%;
+    left: 12.5%;
+    background-color: darkblue;
+    -webkit-clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+    clip-path: polygon(15% 0, 0% 70%, 1% 90%, 5% 100%, 100% 100%, 95% 100%, 97% 94%, 98% 70%, 85% 0);
+  }
+
+  .tree1 {
+    width: 25% !important;
+    height: 25% !important;
+  }
+
+  .tree2 {
+    width: 27% !important;
+    height: 27% !important;
+  }
+
+  .castle {
+      width: 800px;
+      height: 50%;
+      top: 20%;
+      left: calc((100% - 800px)/2);
+      position: absolute;
+  }
+
+  .castle-gate {
+      width: 100%;
+      height: 100%;
+      top: 30%;
+      background-image: url(textures/stone_wall_lowres.png);
+      position: relative;
+      border-radius: 1%;
+      border: 2px solid black;
+  }
+
+  .gate-hole {
+      width: 15%;
+      height: 35%;
+      border-radius: 5%;
+      background-color: black;
+      position: absolute;
+      bottom: -30%;
+      left: 42.5%;
+  }
+  /* Draw the gate */
+  .gate {
+      height: 100%;
+      width: 100%;
+      border-radius: 2%;
+      background-image: url(textures/light_wood_boards_lowres.png);
+      background-repeat: repeat-y; /* Repeat in Y direction */
+      background-size: 100% 20%; /* Stretch to fit the container in X direction */
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transition: transform 2s ease; /* Set a longer transition duration */
+      transform-origin: bottom;
+  }
+
+  .tower {
+    width: 35%;
+    height: 100%;
+    top: 10%;
+    border: 3px solid black;
+    background-image: url(textures/stone_wall_lowres.png);
+    position: absolute;
+    bottom: 0;
+    border-radius: 4% 4% 0 0;
+  }
+  .tower.left {
+      left:5%;
+  }
+  .tower.right {
+      left:60%;
+  }
+
+  .pixel-guard {
+    height: 15% !important;
+    width: 15% !important;
+  }
+
+  .cloth-banner {
+    top: 0%;
+    left: 25%;
+    width: 50%;
+    height: 70%;
+    position: absolute;
+    background-image: url(textures/medieval_banner.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .authenticate-bit {
+    text-align: center;
+    margin-bottom:-2rem;
+    margin-top: 20%;
+    z-index: 300;
+  }
+
+  .username-password-bit {
+    margin-left:20%;
+    margin-right:20%;
+  }
+
+  .username-bit {
+    margin-bottom: 0%;
+    margin-top: -5%;
+  }
+
+  @keyframes flight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-5000%);
+    }
+  }
+
+  .dragon {
+    position: absolute;
+    width: 25%;
+    height: 25%;
+    animation: dragon_wing_flap 2s linear infinite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    animation-timing-function: steps(1, end);
+    z-index: 1000;
+  }
+
+  @keyframes patrol {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(0);
+    }
+    46% {
+      transform: translateX();
+    }
+    50% {
+      transform: translateX() scaleX(-1);
+    }
+    52% {
+      transform: translateX() scaleX(-1);
+    }
+    90% {
+      transform: translateX(0) scaleX(-1);
+    }
+    96% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes run_away {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX();
+    }
+    20% {
+      transform: translateX(0%);
+    }
+    30% {
+      transform: translateX();
+    }
+    40% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX();
+    }
+    60% {
+      transform: translateX();
+    }
+    65% {
+      transform: translateX() translateY(-2vh);
+    }
+    70% {
+      transform: translateX() translateY(6vh);
+    }
+    82% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    85.5% {
+      transform: translateX(0%) scaleX(1) translateY(1vh);
+    }
+    86% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    89.5% {
+      transform: translateX(0%) scaleX(-1) translateY(1vh);
+    }
+    90% {
+      transform: translateX(0%) translateY(2vh);
+    }
+    93% {
+      transform: translateX(0%) translateY(6vh);
+    }
+    98% {
+      transform: translateX(0%) translateY(3vh);
+    }
+  }
+}
