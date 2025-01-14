@@ -1,59 +1,62 @@
 library(shiny)
 library(bslib)
 
-date_select = shiny::dateInput('date_input','Date',min = '1900-01-01',max = '2080-01-01')
+test = FALSE
 
-dropdown_select = shiny::selectizeInput('dropdown_input',"Letter",choices = c(LETTERS))
+if(test){
+  date_select = shiny::dateInput('date_input','Date',min = '1900-01-01',max = '2080-01-01')
 
-radio_select = shiny::radioButtons('radio_input',"Mode",choices = c("Standard","Turbo"))
+  dropdown_select = shiny::selectizeInput('dropdown_input',"Letter",choices = c(LETTERS))
 
-the_sidebar = sidebar(
-  open = 'always',
-  title = "Hi",
-  date_select,
-  dropdown_select,
-  radio_select
+  radio_select = shiny::radioButtons('radio_input',"Mode",choices = c("Standard","Turbo"))
+
+  the_sidebar = sidebar(
+    open = 'always',
+    title = "Hi",
+    date_select,
+    dropdown_select,
+    radio_select
   )
 
 
-page_fallout = function(..., title = NULL, theme = bs_theme(), lang = NULL,
-                        major_buttons = NULL){
-  # shiny::tagList(
+  page_fallout = function(..., title = NULL, theme = bs_theme(), lang = NULL,
+                          major_buttons = NULL){
+    # shiny::tagList(
     # shiny::div(class = "tv-case",
-               # shiny::div(class = "tv-monitor",
-                          bslib::page_fixed(..., shiny::div(major_buttons, class = "major-buttons"), title = NULL, theme = theme, lang = NULL)
-               # )
+    # shiny::div(class = "tv-monitor",
+    bslib::page_fixed(..., shiny::div(major_buttons, class = "major-buttons"), title = NULL, theme = theme, lang = NULL)
+    # )
     # ),
-  # )
-}
+    # )
+  }
 
-tabsetPanel_fallout = function (..., id = NULL, selected = NULL, type = c("falloutbuttons"), header = NULL, footer = NULL)
-{
-  if (!is.null(id))
-    selected <- shiny::restoreInput(id = id, default = selected)
-  type <- match.arg(type)
-  tabset <- bslib:::buildTabset(..., ulClass = paste0("nav nav-",
-                                                      type), id = id, selected = selected)
-  tags$div(class = "tabbable", !!!bslib:::dropNulls(list(tabset$navList,
-                                                 header, tabset$content, footer)))
-}
+  tabsetPanel_fallout = function (..., id = NULL, selected = NULL, type = c("falloutbuttons"), header = NULL, footer = NULL)
+  {
+    if (!is.null(id))
+      selected <- shiny::restoreInput(id = id, default = selected)
+    type <- match.arg(type)
+    tabset <- bslib:::buildTabset(..., ulClass = paste0("nav nav-",
+                                                        type), id = id, selected = selected)
+    tags$div(class = "tabbable", !!!bslib:::dropNulls(list(tabset$navList,
+                                                           header, tabset$content, footer)))
+  }
 
 
-navset_falloutbuttons = function (..., id = NULL, selected = NULL, header = NULL, footer = NULL)
-{
-  falloutbuttons <- tabsetPanel_fallout(..., type = "falloutbuttons", id = id, selected = selected,
-                        header = header, footer = footer)
-  bslib:::as_fragment(falloutbuttons)
-}
+  navset_falloutbuttons = function (..., id = NULL, selected = NULL, header = NULL, footer = NULL)
+  {
+    falloutbuttons <- tabsetPanel_fallout(..., type = "falloutbuttons", id = id, selected = selected,
+                                          header = header, footer = footer)
+    bslib:::as_fragment(falloutbuttons)
+  }
 
-fallout_theme = bslib::bs_theme(
-  base_font = "Arial",     # Optional: specify a base font
-  bg = "darkgreen",          # Optional: set background color
-  fg = "lightgreen"
+  fallout_theme = bslib::bs_theme(
+    base_font = "Arial",     # Optional: specify a base font
+    bg = "darkgreen",          # Optional: set background color
+    fg = "lightgreen"
   )
 
-fallout_theme = bs_add_rules(fallout_theme,
-                             "
+  fallout_theme = bs_add_rules(fallout_theme,
+                               "
                              .nav-falloutbuttons {
                                 position: absolute;
                                 margin-left: 30%; margin-right: 30%;
@@ -75,7 +78,7 @@ fallout_theme = bs_add_rules(fallout_theme,
                              }
                              ")
 
-items_nav_panel = layout_sidebar(
+  items_nav_panel = layout_sidebar(
     fillable = T,
     sidebar = the_sidebar,
     card(
@@ -99,26 +102,27 @@ items_nav_panel = layout_sidebar(
       height = 500)
   )
 
-ui <- page_fallout(
-  theme = fallout_theme,
-  major_buttons = navset_falloutbuttons(
-    nav_panel(
-      title = "STATS",
-    ),
-    nav_panel(
-      title = "ITEMS",
-      items_nav_panel
-    ),
-    nav_panel(
-      title = "DATA"
+  ui <- page_fallout(
+    theme = fallout_theme,
+    major_buttons = navset_falloutbuttons(
+      nav_panel(
+        title = "STATS",
+      ),
+      nav_panel(
+        title = "ITEMS",
+        items_nav_panel
+      ),
+      nav_panel(
+        title = "DATA"
+      )
     )
   )
-)
 
-htmltools::html_print(ui)
+  htmltools::html_print(ui)
 
-server <- function(input, output, session) {
+  server <- function(input, output, session) {
 
+  }
+
+  shinyApp(ui, server)
 }
-
-shinyApp(ui, server)
