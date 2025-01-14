@@ -303,7 +303,7 @@
 }*/
 
 .authentication-box {
-  position: relative;
+  position: absolute;
   top: -20vh;
   left: -30vw;
   width: 300px;

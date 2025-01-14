@@ -51,7 +51,7 @@ secure_app_portal <- function(ui,
     theme <- "shinycastle/css/readable.min.css"
   }
 
-  # Depending on portal style, load in the HTML page.
+  # Depending on portal style, load in the HTML page and CSS styles.
 
   html_file = readLines(system.file(paste0('assets/',portal_type,'_portal.html'), package = 'shinycastle'))
   html_code <- paste(html_file, collapse = "\n")
