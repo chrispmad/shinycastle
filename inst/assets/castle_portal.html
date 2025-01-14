@@ -3,8 +3,9 @@
 <head>
     <link href="shinycastle/styles-auth.css" rel="stylesheet">
     <link href="shinycastle/styles-castle.css" rel="stylesheet">
-    <script src = "shinycastle/bindEnter.js"></script>
+    <link href="shinycastle/castle-dimension-styles.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src = "shinycastle/bindEnter.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
@@ -68,7 +69,7 @@
     <div class = "sky" id = "sky"></div>
     <div class = 'solarflare'></div>
     <div class = 'sun' id = 'sun' style = 'left: 80%; top: 5%;'></div>
-    <div class = 'moon' id = 'moon' style = 'left: 20%; top: 75%;'></div>
+    <div class = 'moon' id = 'moon'></div>
     <div class = 'firmament'>
       <div class = 'star' style = 'top: 2%; left: 5%;'></div>
       <div class = 'star' style = 'top: 10%; left: 20%;'></div>
@@ -96,7 +97,7 @@
     <div class = 'bird' style = 'left:160%; top:3%;'>
       <div class = 'bird-wings'>UU</div>
     </div>
-    <div class = 'dragon' id = 'red_dragon' style = 'left:-20%; top: 5%;'></div>
+    <div class = 'dragon' id = 'red_dragon' style = 'left:calc(-30% - 100px); top: 5%;'></div>
     <div class = 'mountains'></div>
     <div class = 'grass'></div>
     <div class = 'forest' style = 'position: absolute;
@@ -104,8 +105,8 @@
   left:0%;
   width:100%;
   height:100%;'>
-      <div class = 'tree1' style = 'top: -10%; left: 80%; width: 250px; height: 250px; z-index: 105;'></div>
-      <div class = 'tree2' style = 'top: 0%; left: 76%; width: 225px; height: 225px; z-index: 105;'></div>
+      <div class = 'tree1' style = 'top: -10%; left: 80%; width: 35%; height: 35%; z-index: 105;'></div>
+      <div class = 'tree2' style = 'top: 0%; left: 76%; width: 32%; height: 32%; z-index: 105;'></div>
       <div class = 'tree2' style = 'top: 0%; left: 0%;'></div>
       <div class = 'tree2' style = 'top: 10%; left: 25%;'></div>
       <div class = 'tree1' style = 'top: -20%; left: 5%;'></div>
@@ -128,12 +129,32 @@
             <div class = "crenellation cren-right"></div>
         </div>
         <div class="castle-gate">
-          <div class = "cloth-banner"></div>
+          <div class = "cloth-banner">
+            <div class = "med-text authenticate-bit">
+              <h3 id="auth-shinymanager-auth-head" style = "font-size:20px;">Please Authenticate</h3>
+            </div>
+            <br/>
+              <div class = "row username-password-bit">
+                <!--<div class="col-sm-6" style = "padding-left:2%;padding-right:2%;">-->
+                  <div class="form-group username-bit shiny-input-container" style="width:100%; z-index: 300;">
+                    <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
+                    <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-sm-6"  style = "padding-left:2%;padding-right:2%;">-->
+                  <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
+                  <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
+                  <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
+                  </div>
+                <!--</div>-->
+              </div>
+            </div>
+          </div>
           <div class = 'gate-hole'>
-                <!--<div class="gate" id = 'gate'>-->
+                <div class="gate" id = 'gate'>
                   <div id="auth-container-btn-ok" style = "transition: transform 2s ease; transform-origin: bottom;">
                       <button class="btn btn-default action-button med-text gate" id="auth-go_auth" type="button" style = "width:100%;">Enter</button>
-                    <!--</div>-->
+                  </div>
                     <div id="auth-result_auth"></div>
                     <div id="auth-update_shinymanager_language" class="shiny-html-output"></div>
                 </div>
@@ -147,62 +168,18 @@
     <audio id = 'dragon_firebreath_noise'>
       <source src = "https://cdn.freesound.org/previews/423/423009_3325582-lq.ogg" type = "audio/ogg">
     </audio>
-            <br/>
-            <div style="height: 22vh;"></div>
-            <br/>
-            <div class="row">
-              <div class="col-sm-4 offset-md-4 col-sm-offset-4">
-                <div class="panel panel-primary panel-in-wall">
-                  <div class="panel-body">
-                    <div style="display:none">
-                      <div class="row">
-                        <div class="col-sm-4 offset-md-4 col-sm-offset-4">
-                          <div id="auth-label_language" class="shiny-html-output"></div>
-                        </div>
-                        <div class="col-sm-4">
-                          <div style="text-align: left; font-size: px;">
-                            <div class="form-group shiny-input-container" style="width:100%;">
-                              <label class="control-label shiny-label-null" for="auth-language" id="auth-language-label"></label>
-                              <div>
-                                <select id="auth-language" class="shiny-input-select"><option value="en" selected>English</option></select>
-                                <script type="application/json" data-for="auth-language" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class = "med-text" style="text-align: center; margin-bottom:-2rem; z-index: 300;">
-                      <h3 id="auth-shinymanager-auth-head">Please Authenticate</h3>
-                    </div>
-                    <br/>
-                    <div class = "row">
-                      <div class = "col-sm-2"></div>
-                      <div class="col-sm-4">
-                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
-                          <label class="med-text control-label" id="auth-user_id-label" for="auth-user_id">Username :</label>
-                          <input id="auth-user_id" type="text" class="shiny-input-text form-control" value=""/>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group shiny-input-container" style="width:100%; z-index: 300;">
-                          <label class="med-text control-label" id="auth-user_pwd-label" for="auth-user_pwd">Password :</label>
-                          <input id="auth-user_pwd" type="password" class="shiny-input-password form-control" value=""/>
-                        </div>
-                      </div>
-                      <div class = "col-sm-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-    </div>
 </div>
 <script>
+  the_container = document.getElementById('auth-auth-mod');
   dragon = document.getElementById('red_dragon');
   guard_1 = document.getElementById('pixel-guard-1');
   guard_2 = document.getElementById('pixel-guard-2');
   dragon_firebreath_noise = document.getElementById('dragon_firebreath_noise');
+
+  // calculate screen dimensions
+  total_w = the_container.offsetWidth;
+  total_h = the_container.offsetHeight;
+  if(total_w < 500) total_w = 500;
 
   function createFireball() {
             const fireball = document.createElement('div');
@@ -217,7 +194,10 @@
       let i = 1;
       // Get initial dragon position.
       // drag_pos_i = parseFloat(dragon.style.left);
-      drag_pos_i = -20;
+      drag_pos_i = -0.15 * total_w;
+      if(total_w > 600){
+        total_w = 1.5*total_w
+      }
       // Define movement animation
       const interval = setInterval(function() {
           if(i < 101){
@@ -227,11 +207,13 @@
               guard_1.classList.add('scared');
               guard_2.classList.add('scared');
             }
-            if(i == 10){
+            if(i == 14){
               dragon_firebreath_noise.play();
             }
-            const x_movement = i*1.5;
-              dragon.style.left = drag_pos_i + x_movement + '%';
+            // const x_movement = i*1.5;
+            const x_movement = total_w * (i*1.5) / 100 ;
+              //dragon.style.left = 'calc(' + (drag_pos_i + x_movement) + '%' + '- 100px)';
+              dragon.style.left = drag_pos_i + x_movement + 'px';
               i++;
           } else {
               // Fire-breathing pause
@@ -250,8 +232,11 @@
                       dragon.removeChild(fireball);
                   }
               // Fly away to right of screen
-              const x_movement = (i - 15)*1.5;
-              dragon.style.left = drag_pos_i + x_movement + '%';
+              // const x_movement = (i - 15)*1.5;
+              //const x_movement = (i - 15);
+              //dragon.style.left = 'calc(' + (drag_pos_i + x_movement) + '%' + '- 100px)';
+              const x_movement = total_w * (i - 15)*1.5 / 100 ;
+              dragon.style.left = drag_pos_i + x_movement + 'px';
               i++;
               // Gradually reduce opacity of burn marks on castle
               if(i == 80) {
@@ -332,6 +317,12 @@
        eval(data.message)
     });
 
+    // Custom event handler for when the username and password are correctly entered.
+    Shiny.addCustomMessageHandler('enter_castle', function(message) {
+      if (message == 'clicked') {
+        document.getElementById('gate').classList.add('gate-down');
+      }
+    });
 </script>
 </body>
 </html>
