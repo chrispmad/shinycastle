@@ -1,0 +1,516 @@
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --clr-1: #052b2f;
+  --clr-2: #1d6748;
+  --clr-3: #269e94;
+  --clr-4: #9a3c3c;
+  --clr-5: #72236a;
+  --darkwood: #251712;
+}
+
+.container {
+    overflow: hidden;
+    top:0; left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+body{
+  margin: 0;
+}
+
+.sky {
+    /*background: linear-gradient(to top right, #87CEEB, #87CEFA, #B0E0E6, #ADD8E6, #F0F8FF);*/
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 400%;
+    overflow: hidden;
+    /*background: linear-gradient(to bottom,  #ADD8E6 0%, #87CEEB 10%, #87CEFA 15%, lightyellow 25%, gold 25.75%, orange 30%, red 32.5%, purple 3
+    rep%, darkblue 35%, black 50%, darkblue 65%, purple 67.5%, red 68.5%, orange 70%, gold 74.75%, lightyellow 75%, #87CEFA 85%, #87CEEB 90%, #ADD8E6 100%);*/
+    background: linear-gradient(to bottom,  #ADD8E6, #87CEEB, #87CEFA, darkblue, black, black, black, darkblue, #87CEFA, #87CEEB, #ADD8E6,  #ADD8E6);
+    animation: day_cycle 80s linear infinite;
+}
+
+.sun {
+    width: 5px;
+    height: 5px;
+    top: 50%;
+    left: 57%;
+    position: absolute;
+    z-index: 3;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25%;
+    box-shadow: 0 0 6px 6px white, /* Outer white glow */
+                0 0 10px 10px var(--clr-5); /* Inner yellow glow */
+    animation: sun-galaxy-track 120s linear infinite;
+}
+
+.moon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-size: contain;
+    background-image: url(textures/moon.png);
+    mix-blend-mode: lighten;
+}
+
+.firmament {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  z-index: 0;
+  height: 3px;
+  background: white;
+  mix-blend-mode: lighten;
+  animation: twinkle 3s linear infinite;
+}
+
+@keyframes twinkle {
+  0%{
+    transform: rotateZ(0);
+  }
+  25%{
+    transform: rotateZ(-90deg);
+  }
+  50%{
+    transform: rotateZ(0);
+  }
+  75%{
+    transform: rotateZ(90deg);
+  }
+  100%{
+    transform: rotateZ(0);
+  }
+}
+
+.lute {
+  position: absolute;
+  top: 5%;
+  left: 46%;
+  width: 10vh;
+  z-index: 12;
+  height: 10vh;
+  filter: invert(1);
+  image-rendering: pixelated;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/13/13217.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.lute:hover {
+  border: 2px solid gold;
+}
+
+.music-box:hover {
+    border: 2px solid gold;
+}
+
+.cloud {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: visible;
+    filter: brightness(30%);
+}
+
+.cloud:nth-child(1) {
+    top: 26%;
+    left: 65%;
+    width: 20vh;
+    height: 20vh;
+    background-image: url(inst/assets/textures/Cloud_1.png);
+}
+
+.cloud:nth-child(2) {
+    top: 65%;
+    left: 10%;
+    width: 45vh;
+    height: 60vh;
+    background-image: url(inst/assets/textures/Cloud_2.png);
+}
+
+.cloud:nth-child(3) {
+  top: 50%;
+  left: 20%;
+  width: 25vh;
+  height: 25vh;
+  background-image: url(inst/assets/textures/Cloud_3.png);
+  filter: hue-rotate(-180deg);
+  opacity: 0.3;
+  rotate: 45deg;
+}
+
+.nautical-text {
+    font-family: 'Comic Sans', serif; /* Medieval-style font */
+    color: #ffffff; /* Brownish color resembling old parchment */
+    text-shadow: 1px 1px 1px #000; /* Shadow to give depth */
+}
+
+
+.input-housing-div {
+  position: absolute;
+  visibility: visible;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.authentication-box {
+  position: relative;
+  top: -20vh;
+  left: -30vw;
+  width: 15rem;
+  z-index: inherit;
+  background: var(--clr-1);
+  text-align: center;
+  font-family: monospace;
+  padding: 10px;
+  filter: blur(10px);
+  opacity: 0;
+  border-radius: 1%;
+  transition: filter 3s ease, visibility 1s, opacity 3s ease;
+}
+
+.authentication-box::before,
+.authentication-box::after {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  z-index: -1;
+  background: linear-gradient(
+    var(--gradient-angle),
+  var(--clr-1),
+  var(--clr-2),
+  var(--clr-3),
+  var(--clr-2),
+  var(--clr-1));
+  border-radius: inherit;
+  animation: rotation 5s linear infinite;
+}
+
+.authentication-box::after {
+  filter:blur(1rem);
+}
+
+@keyframes rotation {
+  0% {--gradient-angle: 0deg; }
+  100% {--gradient-angle: 360deg; }
+}
+
+.schooner {
+  position: absolute;
+  top: 15%; left: 20%;
+  width: 55%; height: 55%;
+  /*border: 1px solid white;*/
+  animation: boat-rock 3s linear infinite;
+}
+
+.sail-box{
+  position: relative;
+  top: 5%;
+  width: 145%;
+  left: -23%;
+  height: 110%;
+}
+
+.sail {
+  background: antiquewhite;
+  position: absolute;
+  opacity: 0.95;
+  animation: buffet 2s linear infinite;
+}
+
+.sail:after {
+  content: "";
+  background-color: #3498db;
+
+}
+
+.jib-sail{
+  top: 0%;
+  left: 0%;
+  width: 29%;
+  height: 88%;
+  animation-delay: 0.1s;
+  clip-path: polygon(0 100%, 100% 0, 85% 50%, 76% 86%, 60% 86%, 50% 87%, 40% 89%, 20% 94%, 10% 97%, 0 100%);
+}
+
+.stay-sail{
+  top: 17.5%;
+  left: 15%;
+  width: 15%;
+  height: 75%;
+  clip-path: polygon(0% 100%, 96% 0%, 90% 50%, 92% 98%, 60% 100%);
+}
+
+.fore-sail{
+  top: 15%;
+  left: 30%;
+  width: 15%;
+  height: 75%;
+  clip-path: polygon(2% 100%, 5% 30%, 95% 0%, 100% 98%, 50% 100%);
+}
+
+.fisherman-sail{
+  top: -10%;
+  left: 33%;
+  width: 22%;
+  height: 70%;
+  clip-path: polygon(0% 35%, 40% 18%, 90% 0%, 100% 100%, 60% 90%, 3% 90%);
+}
+
+.main-sail{
+  top: 0%;
+  right: 0%;
+  width: 45%;
+  height: 88%;
+  clip-path: polygon(3% 30%, 35% 0%, 55% 40%, 75% 75%, 90% 95%, 0% 100%);
+}
+
+.gaff-top-sail{
+
+}
+
+.deck {
+  position: relative;
+  inset: 0;
+  height: 5%;
+  /*border: 1px solid brown;*/
+}
+
+.mast-fore {
+  position: absolute;
+  left: 20%; bottom: -15%;
+  width: 1%;
+  height: 110%;
+  rotate: 1deg;
+  background:#251712;
+}
+
+.mast-main {
+  position: absolute;
+  left: 55%; bottom: -20%;
+  width: 1%;
+  height: 140%;
+  rotate: 2deg;
+  background: antiquewhite;
+}
+
+.boom {
+  position: absolute;
+  left: .5rem; bottom: 15%;
+  width: 25rem;
+  height: 1%;
+  rotate: -5deg;
+  background:#251712;
+}
+
+.hull {
+  position: relative;
+  inset: 0;
+  height: 20%;
+  /*border: 1px solid black;*/
+}
+
+.freeboard {
+  position: relative;
+  top: -10%;
+  left: -5%;
+  height: 50%;
+  width: 120%;
+  border: 1px solid black;
+  background: var(--darkwood);
+  clip-path: polygon(
+
+    0 0, 25% 20%, 60% 30%, 75% 25%,
+    100% 15%, 96% 60%, 92% 100%,
+    6% 100%, 3% 50%, 0 0%
+    );
+}
+
+.strakes {
+  position: relative;
+  top: 25%;
+  left: 0%;
+  height: 80%;
+  width: 110%;
+  border: 1px solid black;
+  background: antiquewhite;
+  clip-path: polygon(
+
+    0 0, 25% 20%, 60% 30%, 75% 25%,
+    100% 15%, 96% 60%, 92% 100%,
+    6% 100%, 3% 50%, 0 0%
+    );
+}
+
+.draft {
+  position: relative;
+  top: -15%;
+  left: 1.3%;
+  height: 50%;
+  width: 105.5%;
+  border: 1px solid black;
+  background: var(--darkwood);
+  clip-path: polygon(
+
+    0 0, 25% 5%, 50% 7.5%, 75% 5%, 100% 0%,
+    96% 40%, 95% 50%, 96% 60%, 98% 80%, 98% 70%,
+    92% 100%,
+    6% 100%, 3% 50%, 0 0%
+    );
+}
+
+.bowsprit {
+  position: absolute;
+  top: 0%;
+  left: -25%;
+  width: 25%;
+  height: 2.5%;
+  background: var(--darkwood);
+  transform: rotate(20deg);
+  transform-origin: 100% 0%;
+  border: 1px solid black;
+}
+
+.garboard {
+  height: 20% !important;
+  background: antiquewhite;
+}
+
+.ocean {
+  position: absolute;
+  top: 85%;
+  left: 0%;
+  width: 100%;
+  height: 25%;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgb(7, 23, 35) 30%, rgb(23, 91, 77) 85%, rgb(183, 203, 234));
+  /*filter: url(#turbulence);*/
+  animation: ocean-rock 3s linear infinite;
+}
+
+.wave {
+  position: absolute;
+  top: 80%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: roll-past 10s infinite linear;
+}
+
+.wave:nth-child(1){
+  background:#1d6748;
+  left: -155%;
+  animation-delay: 0s;
+}
+
+.wave:nth-child(2){
+  background:#87CEEB;
+  left: -160%;
+  animation-delay: 0s;
+}
+
+.wave:nth-child(3){
+  background:#87CEFA;
+  left: -165%;
+  animation-delay: 0s;
+}
+
+.water-effect {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.water {
+  background: url(ocean_from_above.jpg);
+  background-size: cover;
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  width: 105%;
+  height: 105%;
+  filter: url(#turbulence);
+}
+
+@keyframes buffet {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  20% {
+    transform: scaleX(0.99) scaleY(1.01) skewY(2deg) translateX(-1%);
+  }
+  70% {
+    transform: scaleX(0.99) scaleY(1.01) skewY(2deg) translateX(-1%);
+  }
+}
+
+@keyframes ocean-rock {
+  from, to {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes boat-rock {
+  20% {
+    transform: rotate(1deg);
+  }
+  70% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg);}
+}
+
+@keyframes rotation {
+  0% { --gradient-angle: 0deg;}
+  100% { --gradient-angle: 360deg;}
+}
+
+@keyframes dance {
+  0%,50%,100% {
+    transform: scaleY(98%) translateY(2px)
+  }
+  25% {
+    transform: skew(0.5deg)
+  }
+  75% {
+    transform: skew(-0.5deg)
+  }
+}
+
+@keyframes roll-past {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

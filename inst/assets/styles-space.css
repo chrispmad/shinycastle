@@ -349,7 +349,7 @@
     height: 6vh;
     z-index: 10;
     margin: 0.05em auto;
-    background: #888 url(https://static.wikia.nocookie.net/planet-texture-maps/images/1/1d/Venus_Rework.png/revision/latest?cb=20190331041512.png) 0 0 repeat;
+    background: #888 url(textures/planet_texture.png) 0 0 repeat;
     border-radius: 50%;
     background-size: 300%;
     animation: rotate 100s infinite linear;
@@ -365,11 +365,11 @@
   height: 160vh;
   z-index: 10;
   margin: 0.05em auto;
-  background: #888 url(https://static.wikia.nocookie.net/planet-texture-maps/images/1/1d/Venus_Rework.png/revision/latest?cb=20190331041512.png) 0 0 repeat;
+  background: #888 url(textures/planet_texture.png) 0 0 repeat;
   border-radius: 50%;
   background-size: 110%;
   filter:hue-rotate(180deg);
-  animation: traverse-screen-rotating 400s infinite linear;
+  animation: traverse-screen-rotating 60s infinite linear;
   transition: transform 200ms linear;
   transform-style: preserve-3d;
   box-shadow: inset 40px 5px 40px 5px rgb(0,0,0);
